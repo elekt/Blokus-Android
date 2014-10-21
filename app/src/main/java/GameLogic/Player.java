@@ -23,7 +23,7 @@ public abstract class Player {
     //protected ArrayList<Point> getPoints();
     public boolean isOutOfMoves(){ return false; }
 
-    public abstract boolean placeBlock();
+    public abstract boolean placeBlock(int blockIndex, Point coord);
     protected abstract Block chooseBlock();
     protected abstract Point choosePoint();
 

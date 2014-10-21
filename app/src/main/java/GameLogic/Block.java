@@ -12,7 +12,7 @@ public class Block {
     public void turn(int degrees){}
     public void mirror(int sides){}
 
-    public Point getnew Point(int idx){ return points.get(idx); }
+    public Point getPoint(int idx){ return points.get(idx); }
     public int getSize(){ return points.size(); }
     public int getColor() {return color;}
 

@@ -9,8 +9,65 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:text="@string/hello_world"
+        android:id="@+id/playerTurn"
+        android:text="@string/playerTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Block index:"
+        android:id="@+id/blockText"
+        android:layout_below="@+id/playerTurn"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/blockIndex"
+        android:inputType="number"
+        android:layout_toEndOf="@+id/blockText"
+        android:text="0"
+        android:layout_below="@+id/playerTurn"
+        android:layout_toStartOf="@+id/btnStep" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coordinates"
+        android:id="@+id/coordinatesText"
+        android:layout_above="@+id/coordX"
+        android:layout_toStartOf="@+id/blockIndex" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/coordX"
+        android:layout_toEndOf="@+id/coordinatesText"
+        android:text="0"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/coordY" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/coordY"
+        android:layout_toEndOf="@+id/playerTurn"
+        android:text="0"
+        android:layout_above="@+id/btnStep"
+        android:layout_marginBottom="115dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Step"
+        android:id="@+id/btnStep"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

@@ -4,14 +4,48 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import GameLogic.Map;
+import GameLogic.Player;
+import GameLogic.PlayerHuman;
+import GameLogic.Point;
 
 
 public class MainActivity extends Activity {
-
+    private Map map = Map.getInstance();
+    private Player player1 = new PlayerHuman(1);
+    private Player player2 = new PlayerHuman(2);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button btnStep = (Button) findViewById(R.id.btnStep);
+        btnStep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                step();
+            }
+        });
+    }
+
+    // this method is called when somebody steps
+    private void step() {
+        int blockIndex = Integer.valueOf(((EditText) findViewById(R.id.blockIndex)).getText().toString());
+        int coordx = Integer.valueOf(((EditText)findViewById(R.id.coordX)).getText().toString());
+        int coordy = Integer.valueOf(((EditText)findViewById(R.id.coordY)).getText().toString());
+        TextView turnText = (TextView) findViewById(R.id.playerTurn);
+        Point coord = new Point(coordx, coordy);
+        if(map.getSteps()%2==0){
+            player1.placeBlock(blockIndex, coord);
+            turnText.setText("Player2");
+        } else {
+            player2.placeBlock(blockIndex, coord);
+            turnText.setText("Player1");
+        }
     }
 
 

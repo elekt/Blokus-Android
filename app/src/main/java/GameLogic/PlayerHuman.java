@@ -9,7 +9,8 @@ public class PlayerHuman extends Player {
     }
 
     @Override
-    public boolean placeBlock() {
+    public boolean placeBlock(int blockIndex, Point coord) {
+        Map.getInstance().incStep();
         return false;
     }
 
