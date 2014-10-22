@@ -66,20 +66,20 @@ public class BoardView extends View {
     }
 
     private void drawPlayers(Canvas canvas) {
-        Map map = Map.getInstance();
-
-        for(int i=0; i<map.getLineSize(); ++i){
-            for(int j=0; i<map.getLineSize(); ++j){
-                int cell = map.getCell(i,j);
-                if(cell>0) {
-                    paintRect.setColor(getColor(cell));
-                    int x = i * (getWidth() / map.getLineSize());
-                    int y = j * (getHeight() / map.getLineSize());
-                    Rect rect = new Rect(x, y, x + (getWidth() / map.getLineSize()), y + (getHeight() / map.getLineSize()));
-                    canvas.drawRect(rect, paintRect);
-                }
-            }
-        }
+//        Map map = Map.getInstance();
+//
+//        for(int i=0; i<map.getLineSize(); ++i){
+//            for(int j=0; i<map.getLineSize(); ++j){
+//                int cell = map.getCell(i,j);
+//                if(cell>0) {
+//                    paintRect.setColor(getColor(cell));
+//                    int x = i * (getWidth() / map.getLineSize());
+//                    int y = j * (getHeight() / map.getLineSize());
+//                    Rect rect = new Rect(x, y, x + (getWidth() / map.getLineSize()), y + (getHeight() / map.getLineSize()));
+//                    canvas.drawRect(rect, paintRect);
+//                }
+//            }
+//        }
     }
 
     private int getColor(int cell) {
