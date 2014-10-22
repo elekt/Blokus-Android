@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import blokusgame.mi.android.hazi.blokus.GameLogic.Map;
 import blokusgame.mi.android.hazi.blokus.GameLogic.Player;
@@ -28,9 +29,10 @@ public class MainActivity extends Activity {
         btnStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                step();
-                View boardView = findViewById(R.id.boardView);
-                boardView.invalidate();
+                if(step()) {
+                    View boardView = findViewById(R.id.boardView);
+                    boardView.invalidate();
+                }
             }
         });
         Button btnReset = (Button) findViewById(R.id.btnReset);
@@ -45,7 +47,7 @@ public class MainActivity extends Activity {
     }
 
     // this method is called when somebody steps
-    private void step() {
+    private boolean step() {
         int blockIndex = Integer.valueOf(((EditText) findViewById(R.id.blockIndex)).getText().toString());
         int coordx = Integer.valueOf(((EditText)findViewById(R.id.coordX)).getText().toString());
         int coordy = Integer.valueOf(((EditText)findViewById(R.id.coordY)).getText().toString());
@@ -53,16 +55,23 @@ public class MainActivity extends Activity {
         TextView turnText = (TextView) findViewById(R.id.playerTurn);
         Point coord = new Point(coordx, coordy);
         if(map.getSteps()%2==0){
-            if(player1.placeBlock(blockIndex, coord)) {
+             if(player1.placeBlock(blockIndex, coord)) {
                 turnText.setTextColor(Color.RED);
                 turnText.setText("Player2");
-            }
+            } else {
+                 Toast.makeText(getApplicationContext(), "Can't place there", Toast.LENGTH_SHORT).show();
+                 return false;
+             }
         } else {
             if(player2.placeBlock(blockIndex, coord)) {
                 turnText.setTextColor(Color.BLUE);
                 turnText.setText("Player1");
+            } else {
+                Toast.makeText(getApplicationContext(), "Can't place there", Toast.LENGTH_SHORT).show();
+                return false;
             }
         }
+        return true;
     }
 
 

@@ -29,12 +29,12 @@ public class Map {
     // TODO delete this
     public void draw(){}
 
-    public void setCell(int set, int idx){
-        if(set < 0 ) Log.e("ERROR: ", "Expected int over 0");
-        if(cells.get(idx)!=0) Log.e("ERROR: ","Already set");
+    public void setCell(int set, int idx) {
+        if (set < 0) Log.e("ERROR: ", "Expected int over 0");
+        if (cells.get(idx) != 0) Log.e("ERROR: ", "Already set");
         ++steps;
         cells.set(idx, set);
-   ""
+    }
     public void setCell(int set, int x, int y){
         setCell(set, x*lineSize + y);
     }
@@ -59,7 +59,71 @@ public class Map {
     public int getLineSize(){ return lineSize; }
 
     // TODO
-    public boolean isPlaceable(Block block, Point pt){ return true; }
+    public boolean isPlaceable(Block block, Point pt){
+        ///elso korben itt ellenorzi hogy leteheto e. a kezdopontra tette e
+        ///!!!!ez 4 játékos palyan (sarok indulassal) nem mukodne ott tovabb is kene vinni az ellenorzest
+//        if (getSteps() == 0){
+//            for(int i = 0; i<block.getSize(); ++i){
+//                Point temp = new Point(pt.x +  block.getPoint(i).x, pt.y + block.getPoint(i).y);
+//                if (temp.x == 4 && temp.y == 4)
+//                    return true;
+//            }
+//        }else if (getSteps() == 1){
+//             for(int i = 0; i<block.getSize(); ++i){
+//                Point temp = new Point(pt.x +  block.getPoint(i).x, pt.y + block.getPoint(i).y);
+//                if (temp.x == 9 && temp.y == 9)
+//                    return true;
+//            }
+//        }
+
+        ///TODO a vizsgalatokat ossze is lehetne vonni, ha lassu lenne
+        ///az elhelyezett block kilóg e a palyarol
+        for(int i = 0; i<block.getSize(); ++i){
+            Point temp = new Point(pt.x +  block.getPoint(i).x, pt.y + block.getPoint(i).y);
+            if(getCell(temp)==-1){
+                return false;
+            }
+        }
+        /// megvizsgalja, hogy van e kocka utban
+        for(int i = 0; i<block.getSize(); ++i){
+            Point temp = new Point(pt.x +  block.getPoint(i).x, pt.y + block.getPoint(i).y);
+            if(getCell(temp)!=0){
+                return false;
+            }
+        }
+        ///megvizsgalja, hogy van e sajat szinu lapjaval talalkozva
+        for(int i = 0; i<block.getSize(); ++i){//minden elem a blockban
+            Point temp0 = new Point(pt.x +  block.getPoint(i).x - 1, pt.y + block.getPoint(i).y + 0);
+            Point temp1 = new Point(pt.x +  block.getPoint(i).x + 1, pt.y + block.getPoint(i).y + 0);
+            Point temp2 = new Point(pt.x +  block.getPoint(i).x + 0, pt.y + block.getPoint(i).y + 1);
+            Point temp3 = new Point(pt.x +  block.getPoint(i).x + 0, pt.y + block.getPoint(i).y - 1);
+            if (getCell(temp0)==block.getColor() ||
+                    getCell(temp1)==block.getColor() ||
+                    getCell(temp2)==block.getColor() ||
+                    getCell(temp3)==block.getColor()
+                    )
+            {
+                return false;
+            }
+        }
+        // TODO
+//        ///megvizsgalja, hogy van e saját sarokcsatlakozasa, (nincs e a levegoben)
+//        for(int i = 0; i<block.getSize(); ++i){//minden elem a blockban
+//            Point temp0 = new Point(pt.x +  block.getPoint(i).x - 1, pt.y + block.getPoint(i).y - 1);
+//            Point temp1 = new Point(pt.x +  block.getPoint(i).x - 1, pt.y + block.getPoint(i).y - 1);
+//            Point temp2 = new Point(pt.x +  block.getPoint(i).x + 1, pt.y + block.getPoint(i).y + 1);
+//            Point temp3 = new Point(pt.x +  block.getPoint(i).x + 1, pt.y + block.getPoint(i).y - 1);
+//            if (getCell(temp0)!=block.getColor() &&
+//                    getCell(temp1)!=block.getColor() &&
+//                    getCell(temp2)!=block.getColor() &&
+//                    getCell(temp3)!=block.getColor()
+//                    )
+//            {
+//                return false;
+//            }
+//        }
+        return true;
+    }
     public int gameEnd(){ return 0; }
     public void reset(){
         steps = 0;

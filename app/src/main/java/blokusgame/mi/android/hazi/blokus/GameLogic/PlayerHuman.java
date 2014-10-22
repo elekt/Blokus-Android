@@ -11,7 +11,8 @@ public class PlayerHuman extends Player {
     @Override
     public boolean placeBlock(int blockIndex, Point coord) {
         Block block = blocks.remove(blockIndex);
-        if(!Map.getInstance().isPlaceable(block, coord)) {
+        boolean isPlaceable = Map.getInstance().isPlaceable(block, coord);
+        if( isPlaceable==false){
             return false;
         }
         // lerakja a blockot

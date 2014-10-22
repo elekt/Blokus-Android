@@ -8,20 +8,30 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
+    <View.BoardView
+        android:id="@+id/boardView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/playerTurn" />
+
     <TextView
         android:id="@+id/playerTurn"
         android:textColor="#ff063dff"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/playerTxt"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/blockText"
+        android:layout_above="@+id/blockText"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Block index:"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/blockText"
-        android:layout_below="@+id/playerTurn"
+        android:layout_above="@+id/coordinatesText"
         android:layout_alignParentStart="true" />
 
     <EditText
@@ -30,61 +40,53 @@
         android:id="@+id/blockIndex"
         android:inputType="number"
         android:layout_toEndOf="@+id/blockText"
-        android:text="0"
-        android:layout_below="@+id/playerTurn"
-        android:layout_toStartOf="@+id/btnStep" />
+        android:layout_below="@+id/boardView"
+        android:layout_toStartOf="@+id/btnReset" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Coordinates"
         android:id="@+id/coordinatesText"
-        android:layout_toStartOf="@+id/blockIndex"
-        android:layout_below="@+id/blockIndex"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentBottom="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:ems="10"
         android:id="@+id/coordX"
         android:layout_toEndOf="@+id/coordinatesText"
-        android:text="0"
-        android:layout_alignEnd="@+id/blockIndex"
-        android:layout_below="@+id/coordinatesText" />
+        android:layout_toStartOf="@+id/btnReset"
+        android:layout_below="@+id/blockIndex"
+        android:layout_alignStart="@+id/blockIndex"
+        android:layout_above="@+id/coordinatesText" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:ems="10"
         android:id="@+id/coordY"
-        android:layout_toEndOf="@+id/coordinatesText"
-        android:text="0"
-        android:layout_alignEnd="@+id/coordX"
+        android:layout_toStartOf="@+id/btnReset"
+        android:layout_toEndOf="@+id/blockText"
         android:layout_below="@+id/coordX"
-        android:layout_alignStart="@+id/coordX" />
+        android:layout_alignParentBottom="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Step"
         android:id="@+id/btnStep"
-        android:layout_alignBottom="@+id/coordY"
-        android:layout_alignEnd="@+id/boardView" />
+        android:layout_below="@+id/btnReset"
+        android:layout_alignParentEnd="true" />
 
-    <View.BoardView
-        android:id="@+id/boardView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/coordY" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Reset"
         android:id="@+id/btnReset"
-        android:layout_above="@+id/coordY"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/boardView"
+        android:layout_alignEnd="@+id/boardView" />
+
 </RelativeLayout>
