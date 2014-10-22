@@ -33,8 +33,8 @@ public class Map {
         if(set < 0 ) Log.e("ERROR: ", "Expected int over 0");
         if(cells.get(idx)!=0) Log.e("ERROR: ","Already set");
         ++steps;
-        cells.add(idx, set);
-    }
+        cells.set(idx, set);
+   ""
     public void setCell(int set, int x, int y){
         setCell(set, x*lineSize + y);
     }

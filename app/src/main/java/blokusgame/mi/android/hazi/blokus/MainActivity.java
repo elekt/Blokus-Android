@@ -18,8 +18,8 @@ import blokusgame.mi.android.hazi.blokus.GameLogic.Point;
 
 public class MainActivity extends Activity {
     private Map map = Map.getInstance();
-//    private Player player1 = new PlayerHuman(1);
-//    private Player player2 = new PlayerHuman(2);
+    private Player player1 = new PlayerHuman(1);
+    private Player player2 = new PlayerHuman(2);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +33,19 @@ public class MainActivity extends Activity {
                 boardView.invalidate();
             }
         });
+        Button btnReset = (Button) findViewById(R.id.btnReset);
+    btnReset.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            map.reset();
+            View boardView = findViewById(R.id.boardView);
+            boardView.invalidate();
+        }
+    });
     }
 
     // this method is called when somebody steps
     private void step() {
-        Player player1 = new PlayerHuman(1);
-        Player player2 = new PlayerHuman(2);
         int blockIndex = Integer.valueOf(((EditText) findViewById(R.id.blockIndex)).getText().toString());
         int coordx = Integer.valueOf(((EditText)findViewById(R.id.coordX)).getText().toString());
         int coordy = Integer.valueOf(((EditText)findViewById(R.id.coordY)).getText().toString());
