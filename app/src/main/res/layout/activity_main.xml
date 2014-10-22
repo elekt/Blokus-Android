@@ -74,9 +74,9 @@
         android:layout_alignBottom="@+id/coordY"
         android:layout_alignEnd="@+id/boardView" />
 
-    <View.BoardView
+    <blokusgame.mi.android.hazi.blokus.View.BoardView
         android:id="@+id/boardView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/coordY" />
 </RelativeLayout>

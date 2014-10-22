@@ -9,10 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import GameLogic.Map;
-import GameLogic.Player;
-import GameLogic.PlayerHuman;
-import GameLogic.Point;
+import blokusgame.mi.android.hazi.blokus.GameLogic.Map;
+import blokusgame.mi.android.hazi.blokus.GameLogic.Player;
+import blokusgame.mi.android.hazi.blokus.GameLogic.PlayerHuman;
+import blokusgame.mi.android.hazi.blokus.GameLogic.Point;
 
 
 public class MainActivity extends Activity {

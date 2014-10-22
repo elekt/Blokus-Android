@@ -1,4 +1,4 @@
-package View;
+package blokusgame.mi.android.hazi.blokus.View;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,10 +6,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 
-import GameLogic.Map;
+import blokusgame.mi.android.hazi.blokus.GameLogic.Map;
 
 /**
  * Created by elekt on 2014.10.04..
@@ -66,20 +65,20 @@ public class BoardView extends View {
     }
 
     private void drawPlayers(Canvas canvas) {
-//        Map map = Map.getInstance();
-//
-//        for(int i=0; i<map.getLineSize(); ++i){
-//            for(int j=0; i<map.getLineSize(); ++j){
-//                int cell = map.getCell(i,j);
-//                if(cell>0) {
-//                    paintRect.setColor(getColor(cell));
-//                    int x = i * (getWidth() / map.getLineSize());
-//                    int y = j * (getHeight() / map.getLineSize());
-//                    Rect rect = new Rect(x, y, x + (getWidth() / map.getLineSize()), y + (getHeight() / map.getLineSize()));
-//                    canvas.drawRect(rect, paintRect);
-//                }
-//            }
-//        }
+        Map map = Map.getInstance();
+
+        for(int i=0; i<map.getLineSize(); ++i){
+            for(int j=0; j<map.getLineSize(); ++j){
+                int cell = map.getCell(i,j);
+                if(cell>0) {
+                    paintRect.setColor(getColor(cell));
+                    int x = i * (getWidth() / map.getLineSize());
+                    int y = j * (getHeight() / map.getLineSize());
+                    Rect rect = new Rect(x, y, x + (getWidth() / map.getLineSize()), y + (getHeight() / map.getLineSize()));
+                    canvas.drawRect(rect, paintRect);
+                }
+            }
+        }
     }
 
     private int getColor(int cell) {
@@ -95,24 +94,6 @@ public class BoardView extends View {
             default:
                 return Color.CYAN;
         }
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int w = MeasureSpec.getSize(widthMeasureSpec);
-        int h = MeasureSpec.getSize(heightMeasureSpec);
-        int d = w == 0 ? h : h == 0 ? w : w < h ? w : h;
-        setMeasuredDimension(d, d);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            invalidate();
-        }
-
-        return super.onTouchEvent(event);
     }
 }
 
