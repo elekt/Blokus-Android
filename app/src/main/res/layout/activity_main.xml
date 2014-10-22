@@ -37,8 +37,9 @@
         android:layout_height="wrap_content"
         android:text="Coordinates"
         android:id="@+id/coordinatesText"
-        android:layout_above="@+id/coordX"
-        android:layout_toStartOf="@+id/blockIndex" />
+        android:layout_toStartOf="@+id/blockIndex"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/blockIndex" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -48,8 +49,9 @@
         android:id="@+id/coordX"
         android:layout_toEndOf="@+id/coordinatesText"
         android:text="0"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/coordY" />
+        android:layout_alignStart="@+id/coordY"
+        android:layout_below="@+id/coordinatesText"
+        android:layout_alignParentLeft="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -59,15 +61,20 @@
         android:id="@+id/coordY"
         android:layout_toEndOf="@+id/playerTurn"
         android:text="0"
-        android:layout_above="@+id/btnStep"
-        android:layout_marginBottom="115dp" />
+        android:layout_below="@+id/coordX"
+        android:layout_alignParentLeft="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Step"
         android:id="@+id/btnStep"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignBottom="@+id/coordY"
+        android:layout_alignEnd="@+id/boardView" />
 
+    <View.BoardView
+        android:id="@+id/boardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/coordY" />
 </RelativeLayout>
