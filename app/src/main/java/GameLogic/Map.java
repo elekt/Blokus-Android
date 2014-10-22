@@ -59,10 +59,8 @@ public class Map {
     public int getLineSize(){ return lineSize; }
 
     // TODO
-    public boolean isPlaceable(Point pt, Block block){ return true; }
-    /// visszaadja ki nyert ill 0-t ha meg senki
+    public boolean isPlaceable(Block block, Point pt){ return true; }
     public int gameEnd(){ return 0; }
-    /// ha vege a jateknak akkor sztorno minden
     public void reset(){
         steps = 0;
         for(int i=0; i<mapSize; ++i) cells.set(i, 0);

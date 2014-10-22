@@ -10,6 +10,8 @@
 
     <TextView
         android:id="@+id/playerTurn"
+        android:textColor="#ff063dff"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/playerTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -37,8 +39,9 @@
         android:layout_height="wrap_content"
         android:text="Coordinates"
         android:id="@+id/coordinatesText"
-        android:layout_above="@+id/coordX"
-        android:layout_toStartOf="@+id/blockIndex" />
+        android:layout_toStartOf="@+id/blockIndex"
+        android:layout_below="@+id/blockIndex"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -48,8 +51,8 @@
         android:id="@+id/coordX"
         android:layout_toEndOf="@+id/coordinatesText"
         android:text="0"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/coordY" />
+        android:layout_alignEnd="@+id/blockIndex"
+        android:layout_below="@+id/coordinatesText" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -57,10 +60,11 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/coordY"
-        android:layout_toEndOf="@+id/playerTurn"
+        android:layout_toEndOf="@+id/coordinatesText"
         android:text="0"
-        android:layout_above="@+id/btnStep"
-        android:layout_marginBottom="115dp" />
+        android:layout_alignEnd="@+id/coordX"
+        android:layout_below="@+id/coordX"
+        android:layout_alignStart="@+id/coordX" />
 
     <Button
         android:layout_width="wrap_content"

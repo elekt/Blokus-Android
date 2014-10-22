@@ -8,6 +8,11 @@ public class Point {
         x=_x;
         y=_y;
     }
+    void change(){
+        int temp = x;
+        x = y;
+        y = temp;
+    }
     public int x;
     public int y;
 }

@@ -37,6 +37,7 @@ public class MainActivity extends Activity {
         int blockIndex = Integer.valueOf(((EditText) findViewById(R.id.blockIndex)).getText().toString());
         int coordx = Integer.valueOf(((EditText)findViewById(R.id.coordX)).getText().toString());
         int coordy = Integer.valueOf(((EditText)findViewById(R.id.coordY)).getText().toString());
+
         TextView turnText = (TextView) findViewById(R.id.playerTurn);
         Point coord = new Point(coordx, coordy);
         if(map.getSteps()%2==0){
