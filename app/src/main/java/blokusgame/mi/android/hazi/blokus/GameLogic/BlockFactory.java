@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Created by elekt on 2014.10.21..
  */
 public class BlockFactory {
+
     public static ArrayList<Block> createAllBlocks(int color){
         ArrayList<Block> blocks = new ArrayList<Block>();
         blocks.add(create1O(color));

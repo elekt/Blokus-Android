@@ -1,6 +1,7 @@
 package blokusgame.mi.android.hazi.blokus;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,8 +18,8 @@ import blokusgame.mi.android.hazi.blokus.GameLogic.Point;
 
 public class MainActivity extends Activity {
     private Map map = Map.getInstance();
-    private Player player1 = new PlayerHuman(1);
-    private Player player2 = new PlayerHuman(2);
+//    private Player player1 = new PlayerHuman(1);
+//    private Player player2 = new PlayerHuman(2);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,12 +29,16 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 step();
+                View boardView = findViewById(R.id.boardView);
+                boardView.invalidate();
             }
         });
     }
 
     // this method is called when somebody steps
     private void step() {
+        Player player1 = new PlayerHuman(1);
+        Player player2 = new PlayerHuman(2);
         int blockIndex = Integer.valueOf(((EditText) findViewById(R.id.blockIndex)).getText().toString());
         int coordx = Integer.valueOf(((EditText)findViewById(R.id.coordX)).getText().toString());
         int coordy = Integer.valueOf(((EditText)findViewById(R.id.coordY)).getText().toString());
@@ -41,11 +46,15 @@ public class MainActivity extends Activity {
         TextView turnText = (TextView) findViewById(R.id.playerTurn);
         Point coord = new Point(coordx, coordy);
         if(map.getSteps()%2==0){
-            player1.placeBlock(blockIndex, coord);
-            turnText.setText("Player2");
+            if(player1.placeBlock(blockIndex, coord)) {
+                turnText.setTextColor(Color.RED);
+                turnText.setText("Player2");
+            }
         } else {
-            player2.placeBlock(blockIndex, coord);
-            turnText.setText("Player1");
+            if(player2.placeBlock(blockIndex, coord)) {
+                turnText.setTextColor(Color.BLUE);
+                turnText.setText("Player1");
+            }
         }
     }
 

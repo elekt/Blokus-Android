@@ -8,8 +8,10 @@ import java.util.ArrayList;
  * Created by elekt on 2014.10.21..
  */
 public class Block {
-    public Block(){};
-    public Block(ArrayList<Point> _points, int _color){}
+    public Block(ArrayList<Point> _points, int _color){
+        color = _color;
+        points = _points;
+    }
 
     public void turn(int degrees){
         // ha jol emlekszem (1,0) volt, nem veletlen, atirtad?
@@ -71,8 +73,6 @@ public class Block {
     public Point getPoint(int idx){ return points.get(idx); }
     public int getSize(){ return points.size(); }
     public int getColor() {return color;}
-
-    public void draw(){}
 
     private ArrayList<Point> points = new ArrayList<Point>();
     private int color;

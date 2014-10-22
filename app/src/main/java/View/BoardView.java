@@ -1,4 +1,4 @@
-package blokusgame.mi.android.hazi.blokus.View;
+package View;
 
 import android.content.Context;
 import android.graphics.Canvas;

@@ -10,11 +10,11 @@ public class PlayerHuman extends Player {
 
     @Override
     public boolean placeBlock(int blockIndex, Point coord) {
-        if(!Map.getInstance().isPlaceable(blocks.get(blockIndex), coord)) {
+        Block block = blocks.remove(blockIndex);
+        if(!Map.getInstance().isPlaceable(block, coord)) {
             return false;
         }
         // lerakja a blockot
-        Block block = blocks.get(blockIndex);
         Map map = Map.getInstance();
         for(int i = 0; i<block.getSize(); ++i){
             Point temp = new Point(coord.x +  block.getPoint(i).x, coord.y + block.getPoint(i).y);
@@ -23,16 +23,4 @@ public class PlayerHuman extends Player {
         Map.getInstance().incStep();
         return true;
     }
-
-    @Override
-    protected Block chooseBlock() {
-        return null;
-    }
-
-    @Override
-    protected Point choosePoint() {
-        return null;
-    }
-
-
 }
