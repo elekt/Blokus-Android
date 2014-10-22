@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,9 +15,9 @@ import GameLogic.Map;
  * Created by elekt on 2014.10.04..
  */
 public class BoardView extends View {
-    Paint paintBg;
-    Paint paintLine;
-    Paint paintChar;
+    private Paint paintBg;
+    private Paint paintLine;
+    private Paint paintRect;
 
     public BoardView(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -30,11 +31,9 @@ public class BoardView extends View {
         paintLine.setStyle(Paint.Style.STROKE);
         paintLine.setStrokeWidth(2);
 
-        paintChar = new Paint();
-        paintChar.setColor(Color.CYAN);
-        paintLine.setStyle(Paint.Style.STROKE);
-        paintLine.setStrokeWidth(1);
-        paintChar.setTextSize(40);
+        paintRect = new Paint();
+        paintRect.setColor(Color.CYAN);
+        paintRect.setStyle(Paint.Style.FILL);
 
     }
 
@@ -67,7 +66,35 @@ public class BoardView extends View {
     }
 
     private void drawPlayers(Canvas canvas) {
+        Map map = Map.getInstance();
 
+        for(int i=0; i<map.getLineSize(); ++i){
+            for(int j=0; i<map.getLineSize(); ++j){
+                int cell = map.getCell(i,j);
+                if(cell>0) {
+                    paintRect.setColor(getColor(cell));
+                    int x = i * (getWidth() / map.getLineSize());
+                    int y = j * (getHeight() / map.getLineSize());
+                    Rect rect = new Rect(x, y, x + (getWidth() / map.getLineSize()), y + (getHeight() / map.getLineSize()));
+                    canvas.drawRect(rect, paintRect);
+                }
+            }
+        }
+    }
+
+    private int getColor(int cell) {
+        switch (cell){
+            case 1:
+                return Color.RED;
+            case 2:
+                return Color.BLUE;
+            case 3:
+                return Color.YELLOW;
+            case 4:
+                return Color.GREEN;
+            default:
+                return Color.CYAN;
+        }
     }
 
     @Override

@@ -23,6 +23,7 @@ public class Map {
         mapSize = lineSize * lineSize;
         cells = new ArrayList<Integer>(mapSize);
         for(int i = 0; i<mapSize; ++i) cells.add(0);
+        cells.set(15, 2);
     }
 
 
