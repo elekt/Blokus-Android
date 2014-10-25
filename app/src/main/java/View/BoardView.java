@@ -11,7 +11,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 import blokusgame.mi.android.hazi.blokus.GameLogic.Map;
-import blokusgame.mi.android.hazi.blokus.GameLogic.PlayerColors;
+import blokusgame.mi.android.hazi.blokus.GameLogic.PlayerConstants;
 import blokusgame.mi.android.hazi.blokus.GameLogic.Point;
 
 /**
@@ -103,13 +103,13 @@ public class BoardView extends View {
     private int getColor(int cell) {
         switch (cell){
             case 1:
-                return PlayerColors.PLAYER_ONE;
+                return PlayerConstants.PLAYER_ONE;
             case 2:
-                return PlayerColors.PLAYER_TWO;
+                return PlayerConstants.PLAYER_TWO;
             case 3:
-                return PlayerColors.PLAYER_THREE;
+                return PlayerConstants.PLAYER_THREE;
             case 4:
-                return PlayerColors.PLAYER_FOUR;
+                return PlayerConstants.PLAYER_FOUR;
             default:
                 return Color.CYAN;
         }

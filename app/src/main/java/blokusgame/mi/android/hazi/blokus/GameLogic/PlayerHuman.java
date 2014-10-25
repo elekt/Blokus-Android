@@ -10,11 +10,13 @@ public class PlayerHuman extends Player {
 
     @Override
     public boolean placeBlock(int blockIndex, Point coord) {
-        fillCorners();
+        if(Map.getInstance().getSteps()>=2)
+            fillCorners();
+
         if(!corners.contains(coord)){
             return false;
         }
-        Block block = blocks.remove(blockIndex);
+        Block block = blocks.get(blockIndex);
         boolean isPlaceable = Map.getInstance().isPlaceable(block, corners, coord);
         if(!isPlaceable){
             return false;
@@ -25,9 +27,10 @@ public class PlayerHuman extends Player {
             Point temp = new Point(coord.x +  block.getPoint(i).x, coord.y + block.getPoint(i).y);
             map.setCell(block.getColor(), temp);
         }
+        blocks.remove(blockIndex);
         Map.getInstance().incStep();
         fillCorners();
-        
+
         return true;
     }
 }

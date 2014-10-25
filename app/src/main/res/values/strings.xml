@@ -7,5 +7,7 @@
     <string name="playerTxt">Player1</string>
     <string name="tytCoordinates">Coordinates</string>
     <string name="txtBlockindex">Block index:</string>
+    <string name="txtStep">Step</string>
+    <string name="txtreset">Reset</string>
 
 </resources>

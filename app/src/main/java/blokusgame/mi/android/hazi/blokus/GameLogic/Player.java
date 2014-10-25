@@ -27,33 +27,46 @@ public abstract class Player {
     // TODO no me gusta
     // egyelore csak annyit csinal, hogy minden pontnak megnezi, hogy a sarkainal ures e, ha igen lementi
     protected void fillCorners(){
-        if(Map.getInstance().getSteps()<2)
-            return;
         corners = new ArrayList<Point>();
+
         Map map = Map.getInstance();
         for(int i=0; i<map.getLineSize(); ++i){
             for(int j=0; j<map.getLineSize(); ++j){
                 if(map.getCell(i,j)==color){
                     Point pt = new Point(i,j);
+
                     Point temp = new Point(pt.x-1, pt.y-1);
-                    if(map.getCell(temp)==0){
+                    if(checkCorner(temp)){
                         corners.add(temp);
                     }
                     temp = new Point(pt.x-1, pt.y+1);
-                    if(map.getCell(temp)==0){
+                    if(checkCorner(temp)){
                         corners.add(temp);
                     }
                     temp = new Point(pt.x+1, pt.y-1);
-                    if(map.getCell(temp)==0){
+                    if(checkCorner(temp)){
                         corners.add(temp);
                     }
                     temp = new Point(pt.x+1, pt.y+1);
-                    if(map.getCell(temp)==0){
+                    if(checkCorner(temp)){
                         corners.add(temp);
                     }
+
                 }
             }
         }
+    }
+
+    private boolean checkCorner(Point pt) {
+        Map map = Map.getInstance();
+        if(map.getCell(pt)==0 && !corners.contains(pt)){
+            for (Block block : blocks) {
+                if (map.isFitting(block, pt)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public abstract boolean placeBlock(int blockIndex, Point coord);
