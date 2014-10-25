@@ -5,5 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="playerTxt">Player1</string>
+    <string name="tytCoordinates">Coordinates</string>
+    <string name="txtBlockindex">Block index:</string>
 
 </resources>

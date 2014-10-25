@@ -16,21 +16,26 @@ import blokusgame.mi.android.hazi.blokus.GameLogic.Player;
 import blokusgame.mi.android.hazi.blokus.GameLogic.PlayerHuman;
 import blokusgame.mi.android.hazi.blokus.GameLogic.Point;
 
+import View.BoardView;
 
 public class MainActivity extends Activity {
     private Map map = Map.getInstance();
     private Player player1 = new PlayerHuman(1);
     private Player player2 = new PlayerHuman(2);
+    private BoardView boardView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        boardView = (BoardView) findViewById(R.id.boardView);
+        boardView.setCorners(player1.getCorners());
         Button btnStep = (Button) findViewById(R.id.btnStep);
         btnStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(step()) {
-                    View boardView = findViewById(R.id.boardView);
                     boardView.invalidate();
                 }
             }
@@ -40,7 +45,6 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 map.reset();
-                View boardView = findViewById(R.id.boardView);
                 boardView.invalidate();
             }
         });
@@ -58,6 +62,7 @@ public class MainActivity extends Activity {
              if(player1.placeBlock(blockIndex, coord)) {
                 turnText.setTextColor(Color.RED);
                 turnText.setText("Player2");
+                 boardView.setCorners(player2.getCorners());
             } else {
                  Toast.makeText(getApplicationContext(), "Can't place there", Toast.LENGTH_SHORT).show();
                  return false;
@@ -66,6 +71,7 @@ public class MainActivity extends Activity {
             if(player2.placeBlock(blockIndex, coord)) {
                 turnText.setTextColor(Color.BLUE);
                 turnText.setText("Player1");
+                boardView.setCorners(player1.getCorners());
             } else {
                 Toast.makeText(getApplicationContext(), "Can't place there", Toast.LENGTH_SHORT).show();
                 return false;

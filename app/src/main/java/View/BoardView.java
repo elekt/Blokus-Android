@@ -8,8 +8,11 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.util.ArrayList;
+
 import blokusgame.mi.android.hazi.blokus.GameLogic.Map;
 import blokusgame.mi.android.hazi.blokus.GameLogic.PlayerColors;
+import blokusgame.mi.android.hazi.blokus.GameLogic.Point;
 
 /**
  * Created by elekt on 2014.10.04..
@@ -18,6 +21,7 @@ public class BoardView extends View {
     private Paint paintBg;
     private Paint paintLine;
     private Paint paintRect;
+    private ArrayList<Point> corners;
 
     public BoardView(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -46,6 +50,8 @@ public class BoardView extends View {
         drawGameArea(canvas);
 
         drawPlayers(canvas);
+
+        drawCorners(canvas);
     }
 
     private void drawGameArea(Canvas canvas) {
@@ -82,6 +88,18 @@ public class BoardView extends View {
         }
     }
 
+    private void drawCorners(Canvas canvas){
+        paintRect.setColor(Color.GRAY);
+        paintRect.setAlpha(160);
+        Map map = Map.getInstance();
+        for(int i=0; i<corners.size(); ++i){
+            int x = corners.get(i).x * (getWidth() / map.getLineSize());
+            int y = corners.get(i).y * (getHeight() / map.getLineSize());
+            Rect rect = new Rect(x, y, x + (getWidth() / map.getLineSize()), y + (getHeight() / map.getLineSize()));
+            canvas.drawRect(rect, paintRect);
+        }
+    }
+
     private int getColor(int cell) {
         switch (cell){
             case 1:
@@ -95,6 +113,11 @@ public class BoardView extends View {
             default:
                 return Color.CYAN;
         }
+    }
+
+
+    public void setCorners(ArrayList<Point> _corners){
+        corners = _corners;
     }
 }
 
