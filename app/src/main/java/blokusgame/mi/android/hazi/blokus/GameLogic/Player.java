@@ -27,6 +27,8 @@ public abstract class Player {
     // TODO no me gusta
     // egyelore csak annyit csinal, hogy minden pontnak megnezi, hogy a sarkainal ures e, ha igen lementi
     protected void fillCorners(){
+        if(Map.getInstance().getSteps()<2)
+            return;
         corners = new ArrayList<Point>();
         Map map = Map.getInstance();
         for(int i=0; i<map.getLineSize(); ++i){
@@ -54,10 +56,7 @@ public abstract class Player {
         }
     }
 
-    public boolean placeBlock(int blockIndex, Point coord){
-        fillCorners();
-        return true;
-    }
+    public abstract boolean placeBlock(int blockIndex, Point coord);
 
     protected ArrayList<Block> blocks;
     protected ArrayList<Point> corners;

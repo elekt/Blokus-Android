@@ -13,6 +13,11 @@ public class Point {
         x = y;
         y = temp;
     }
+
+    @Override
+    public boolean equals(Object _other){
+        return (x == ((Point)_other).x && y == ((Point)_other).y);
+    }
     public int x;
     public int y;
 }

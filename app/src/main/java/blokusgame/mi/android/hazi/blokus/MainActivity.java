@@ -62,7 +62,7 @@ public class MainActivity extends Activity {
              if(player1.placeBlock(blockIndex, coord)) {
                 turnText.setTextColor(Color.RED);
                 turnText.setText("Player2");
-                 boardView.setCorners(player2.getCorners());
+                boardView.setCorners(player2.getCorners());
             } else {
                  Toast.makeText(getApplicationContext(), "Can't place there", Toast.LENGTH_SHORT).show();
                  return false;
