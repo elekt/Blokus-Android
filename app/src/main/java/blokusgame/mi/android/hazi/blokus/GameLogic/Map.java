@@ -25,10 +25,6 @@ public class Map {
         for(int i = 0; i<mapSize; ++i) cells.add(0);
     }
 
-
-    // TODO delete this
-    public void draw(){}
-
     public void setCell(int set, int idx) {
         if (set < 0) Log.e("ERROR: ", "Expected int over 0");
         if (cells.get(idx) != 0) Log.e("ERROR: ", "Already set");
