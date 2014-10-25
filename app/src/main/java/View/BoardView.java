@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import blokusgame.mi.android.hazi.blokus.GameLogic.Map;
+import blokusgame.mi.android.hazi.blokus.GameLogic.PlayerColors;
 
 /**
  * Created by elekt on 2014.10.04..
@@ -84,13 +85,13 @@ public class BoardView extends View {
     private int getColor(int cell) {
         switch (cell){
             case 1:
-                return Color.RED;
+                return PlayerColors.PLAYER_ONE;
             case 2:
-                return Color.BLUE;
+                return PlayerColors.PLAYER_TWO;
             case 3:
-                return Color.YELLOW;
+                return PlayerColors.PLAYER_THREE;
             case 4:
-                return Color.GREEN;
+                return PlayerColors.PLAYER_FOUR;
             default:
                 return Color.CYAN;
         }

@@ -13,7 +13,10 @@ public abstract class Player {
         color=_color;
         blocks = BlockFactory.createAllBlocks(color);
 
+        // only in DUO
+        Point startPoint = ((color==1)?new Point(5,5):new Point(10,10));
         corners = new ArrayList<Point>();
+        corners.add(startPoint);
     }
 
     protected void setColor(int _color){ color = _color; }
@@ -24,6 +27,7 @@ public abstract class Player {
     // TODO no me gusta
     // egyelore csak annyit csinal, hogy minden pontnak megnezi, hogy a sarkainal ures e, ha igen lementi
     protected void fillCorners(){
+        corners = new ArrayList<Point>();
         Map map = Map.getInstance();
         for(int i=0; i<map.getLineSize(); ++i){
             for(int j=0; j<map.getLineSize(); ++j){
@@ -50,7 +54,10 @@ public abstract class Player {
         }
     }
 
-    public abstract boolean placeBlock(int blockIndex, Point coord);
+    public boolean placeBlock(int blockIndex, Point coord){
+        fillCorners();
+        return true;
+    }
 
     protected ArrayList<Block> blocks;
     protected ArrayList<Point> corners;

@@ -36,14 +36,14 @@ public class MainActivity extends Activity {
             }
         });
         Button btnReset = (Button) findViewById(R.id.btnReset);
-    btnReset.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            map.reset();
-            View boardView = findViewById(R.id.boardView);
-            boardView.invalidate();
-        }
-    });
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                map.reset();
+                View boardView = findViewById(R.id.boardView);
+                boardView.invalidate();
+            }
+        });
     }
 
     // this method is called when somebody steps
