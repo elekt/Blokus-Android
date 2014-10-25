@@ -17,8 +17,9 @@ import blokusgame.mi.android.hazi.blokus.GameLogic.PlayerHuman;
 import blokusgame.mi.android.hazi.blokus.GameLogic.Point;
 
 import View.BoardView;
+import View.BoardTouchListener;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements BoardTouchListener {
     private Map map = Map.getInstance();
     private Player player1 = new PlayerHuman(1);
     private Player player2 = new PlayerHuman(2);
@@ -30,7 +31,10 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         boardView = (BoardView) findViewById(R.id.boardView);
+        boardView.setWasTouchedListener(this);
+
         boardView.setCorners(player1.getCorners());
+
         Button btnStep = (Button) findViewById(R.id.btnStep);
         btnStep.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +54,6 @@ public class MainActivity extends Activity {
         });
     }
 
-    // this method is called when somebody steps
     private boolean step() {
         int blockIndex = Integer.valueOf(((EditText) findViewById(R.id.blockIndex)).getText().toString());
         int coordx = Integer.valueOf(((EditText)findViewById(R.id.coordX)).getText().toString());
@@ -98,5 +101,13 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBoardTouched(int x, int y) {
+        EditText coordX = (EditText) findViewById(R.id.coordX);
+        coordX.setText(String.valueOf(x));
+        EditText coordY = (EditText) findViewById(R.id.coordY);
+        coordY.setText(String.valueOf(y));
     }
 }

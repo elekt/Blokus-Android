@@ -6,18 +6,23 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 
 import blokusgame.mi.android.hazi.blokus.GameLogic.Map;
 import blokusgame.mi.android.hazi.blokus.GameLogic.PlayerConstants;
 import blokusgame.mi.android.hazi.blokus.GameLogic.Point;
+import blokusgame.mi.android.hazi.blokus.R;
 
 /**
  * Created by elekt on 2014.10.04..
  */
 public class BoardView extends View {
+    ArrayList<BoardTouchListener> listeners = new ArrayList<BoardTouchListener>();
+
     private Paint paintBg;
     private Paint paintLine;
     private Paint paintRect;
@@ -119,5 +124,25 @@ public class BoardView extends View {
     public void setCorners(ArrayList<Point> _corners){
         corners = _corners;
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+
+            int tX = ((int) event.getX()) / (getWidth() / Map.getInstance().getLineSize());
+            int tY = ((int) event.getY()) / (getHeight() / Map.getInstance().getLineSize());
+
+            for (BoardTouchListener listener:listeners){
+                listener.onBoardTouched(tX,tY);
+            }
+        }
+
+        return super.onTouchEvent(event);
+    }
+
+    public void setWasTouchedListener(BoardTouchListener listener){
+        listeners.add(listener);
+    }
+
 }
 
