@@ -8,14 +8,12 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
 
 import java.util.ArrayList;
 
 import blokusgame.mi.android.hazi.blokus.GameLogic.Map;
 import blokusgame.mi.android.hazi.blokus.GameLogic.PlayerConstants;
 import blokusgame.mi.android.hazi.blokus.GameLogic.Point;
-import blokusgame.mi.android.hazi.blokus.R;
 
 /**
  * Created by elekt on 2014.10.04..
@@ -38,7 +36,7 @@ public class BoardView extends View {
         paintLine = new Paint();
         paintLine.setColor(Color.WHITE);
         paintLine.setStyle(Paint.Style.STROKE);
-        paintLine.setStrokeWidth(2);
+        paintLine.setStrokeWidth(1);
 
         paintRect = new Paint();
         paintRect.setColor(Color.CYAN);

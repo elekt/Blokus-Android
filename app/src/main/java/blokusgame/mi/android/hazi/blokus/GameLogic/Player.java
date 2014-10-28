@@ -27,8 +27,7 @@ public abstract class Player {
     // TODO no me gusta
     // egyelore csak annyit csinal, hogy minden pontnak megnezi, hogy a sarkainal ures e, ha igen lementi
     protected void fillCorners(){
-        corners = new ArrayList<Point>();
-
+        corners.clear();
         Map map = Map.getInstance();
         for(int i=0; i<map.getLineSize(); ++i){
             for(int j=0; j<map.getLineSize(); ++j){
@@ -36,19 +35,19 @@ public abstract class Player {
                     Point pt = new Point(i,j);
 
                     Point temp = new Point(pt.x-1, pt.y-1);
-                    if(checkCorner(temp)){
+                    if(map.getCell(temp)==0 && checkCorner(temp)){
                         corners.add(temp);
                     }
                     temp = new Point(pt.x-1, pt.y+1);
-                    if(checkCorner(temp)){
+                    if(map.getCell(temp)==0 && checkCorner(temp)){
                         corners.add(temp);
                     }
                     temp = new Point(pt.x+1, pt.y-1);
-                    if(checkCorner(temp)){
+                    if(map.getCell(temp)==0 && checkCorner(temp)){
                         corners.add(temp);
                     }
                     temp = new Point(pt.x+1, pt.y+1);
-                    if(checkCorner(temp)){
+                    if(map.getCell(temp)==0 && checkCorner(temp)){
                         corners.add(temp);
                     }
 
@@ -59,12 +58,25 @@ public abstract class Player {
 
     private boolean checkCorner(Point pt) {
         Map map = Map.getInstance();
-        if(map.getCell(pt)==0 && !corners.contains(pt)){
-            for (Block block : blocks) {
-                if (map.isFitting(block, pt)) {
-                    return true;
-                }
+        if(!corners.contains(pt)){
+            // TODO, most csak vizsgalja a kornyezo 4 cellat, hogy nincs e ugyanolyan szin
+            Point temp0 = new Point(pt.x - 1, pt.y);
+            Point temp1 = new Point(pt.x + 1, pt.y);
+            Point temp2 = new Point(pt.x, pt.y + 1);
+            Point temp3 = new Point(pt.x, pt.y - 1);
+            if (map.getCell(temp0)==color ||
+                map.getCell(temp1)==color ||
+                map.getCell(temp2)==color ||
+                map.getCell(temp3)==color){
+                return false;
             }
+            return true;
+            // TODO ez lenne a tuti
+//            for (Block block : blocks) {
+//                if (map.isFitting(block, pt)) {
+//                    return true;
+//                }
+//            }
         }
         return false;
     }
