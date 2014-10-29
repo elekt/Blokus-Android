@@ -54,8 +54,9 @@ public class Map {
 
     public int getLineSize(){ return lineSize; }
 
-    // TODO
-    public boolean isPlaceable(Block block, ArrayList<Point> corners, Point pt){
+
+    // cornerek nelkul
+    public boolean isPlaceable(Block block, Point pt){
         ///TODO a vizsgalatokat ossze is lehetne vonni, ha lassu lenne
         ///az elhelyezett block kilóg e a palyarol
         for(int i = 0; i<block.getSize(); ++i){
@@ -86,18 +87,18 @@ public class Map {
                 return false;
             }
         }
-        // TODO
-        ///megvizsgalja, hogy van e saját sarokcsatlakozasa, (nincs e a levegoben)
+        return true;
+    }
+
+
+    // TODO
+    public boolean isPlaceable(Block block, ArrayList<Point> corners, Point pt){
+        isPlaceable(block, pt);
         for(int i = 0; i<block.getSize(); ++i){//minden elem a blockban
             if(corners.contains(block.getPoint(i))){
                 return true;
             }
         }
-        return true;
-    }
-
-    // TODO
-    public boolean isFitting(Block block, Point temp) {
         return true;
     }
 
