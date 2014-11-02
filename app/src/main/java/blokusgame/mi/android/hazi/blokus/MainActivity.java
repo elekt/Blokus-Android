@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,14 @@ public class MainActivity extends Activity implements BoardTouchListener {
         boardView.setWasTouchedListener(this);
 
         boardView.setCorners(player1.getCorners());
+
+        LinearLayout horizontal_scroll = (LinearLayout) findViewById(R.id.horizontal_layout);
+        ImageView imageView;
+        for(int i=0; i<30; ++i) {
+            imageView = new ImageView(this);
+            imageView.setBackgroundResource(R.drawable.ic_launcher);
+            horizontal_scroll.addView(imageView);
+        }
 
         Button btnStep = (Button) findViewById(R.id.btnStep);
         btnStep.setOnClickListener(new View.OnClickListener() {
