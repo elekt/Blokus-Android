@@ -95,9 +95,9 @@ public class BoardView extends View {
         paintRect.setColor(Color.GRAY);
         paintRect.setAlpha(160);
         Map map = Map.getInstance();
-        for(int i=0; i<corners.size(); ++i){
-            int x = corners.get(i).x * (getWidth() / map.getLineSize());
-            int y = corners.get(i).y * (getHeight() / map.getLineSize());
+        for (Point corner : corners) {
+            int x = corner.x * (getWidth() / map.getLineSize());
+            int y = corner.y * (getHeight() / map.getLineSize());
             Rect rect = new Rect(x, y, x + (getWidth() / map.getLineSize()), y + (getHeight() / map.getLineSize()));
             canvas.drawRect(rect, paintRect);
         }

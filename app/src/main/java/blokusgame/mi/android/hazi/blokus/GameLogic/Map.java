@@ -91,7 +91,6 @@ public class Map {
     }
 
 
-    // TODO
     public boolean isPlaceable(Block block, ArrayList<Point> corners, Point pt){
         isPlaceable(block, pt);
         for(int i = 0; i<block.getSize(); ++i){//minden elem a blockban
@@ -103,6 +102,7 @@ public class Map {
     }
 
     public int gameEnd(){ return 0; }
+
     public void reset(){
         steps = 0;
         for(int i=0; i<mapSize; ++i) cells.set(i, 0);
