@@ -3,7 +3,6 @@ package blokusgame.mi.android.hazi.blokus.GameLogic;
 import android.util.Log;
 
 import java.util.ArrayList;
-import blokusgame.mi.android.hazi.blokus.GameLogic.PlayerConstants;
 
 /**
  * Created by elekt on 2014.10.21..
@@ -90,19 +89,23 @@ public class Map {
         return true;
     }
 
-
-    // TODO
     public boolean isPlaceable(Block block, ArrayList<Point> corners, Point pt){
+        // megnezi, hogy tenylegesen odaillik e
         isPlaceable(block, pt);
-        for(int i = 0; i<block.getSize(); ++i){//minden elem a blockban
-            if(corners.contains(block.getPoint(i))){
+
+        // megnezi, hogy hozzaer-e sarokhoz
+        for(int i = 0; i<block.getSize(); ++i){
+            Point temp = new Point(pt.x +  block.getPoint(i).x, pt.y + block.getPoint(i).y);
+
+            if(corners.contains(temp)){
                 return true;
             }
         }
-        return true;
+        return false;
     }
 
     public int gameEnd(){ return 0; }
+
     public void reset(){
         steps = 0;
         for(int i=0; i<mapSize; ++i) cells.set(i, 0);

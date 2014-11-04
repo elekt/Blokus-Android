@@ -10,7 +10,6 @@ public class PlayerAlgorithm extends Player {
         super(_color);
     }
 
-
     // a mainbol ezt kell hivni, nem a placeblockot. sry
     public void nextStep(){
         if(Map.getInstance().getSteps()>=2)
