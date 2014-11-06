@@ -45,6 +45,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
             imageView.setOnClickListener(blockClickListener);
             horizontal_scroll.addView(imageView);
         }
+        horizontal_scroll.removeViewAt(3);
 
         Button btnStep = (Button) findViewById(R.id.btnStep);
         btnStep.setOnClickListener(new View.OnClickListener() {
