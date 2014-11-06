@@ -1,105 +1,101 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="10"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        xmlns:sothree="http://schemas.android.com/apk/blokusgame.mi.android.hazi.blokus"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/sliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        sothree:panelHeight="68dp"
+        sothree:shadowHeight="4dp"
+        tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="4">
-        <View.BoardView
-            android:id="@+id/boardView"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
-    </LinearLayout>
-
-    <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="6">
-
-        <TextView
-            android:id="@+id/playerTurn"
-            android:textColor="#ff063dff"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/playerTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
+           <View.BoardView
+                android:id="@+id/boardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/playerTurn"
+                android:textColor="#ff063dff"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/playerTxt"
+                android:layout_below="@+id/boardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txtBlockindex"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/blockText" />
-
+                android:id="@+id/blockText"
+                android:layout_below="@+id/playerTurn"
+                android:layout_alignParentStart="true" />
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/blockIndex"
-                android:inputType="number" />
-         </LinearLayout>
+                android:inputType="number"
+                android:layout_alignBottom="@+id/blockText"
+                android:layout_toEndOf="@+id/blockText" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/tytCoordinates"
+                android:id="@+id/coordinatesText"
+                android:layout_below="@+id/blockText"
+                android:layout_alignParentStart="true" />
 
-        <LinearLayout
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txtStep"
+                android:id="@+id/btnStep"
+                android:layout_below="@+id/blockIndex"
+                android:layout_toStartOf="@+id/btnReset" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txtreset"
+                android:id="@+id/btnReset"
+                android:layout_alignTop="@+id/btnStep"
+                android:layout_alignParentEnd="true" />
+
+            <EditText
+                android:layout_width="37dp"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                android:id="@+id/coordX"
+                android:layout_below="@+id/blockIndex"
+                android:layout_toEndOf="@+id/coordinatesText"
+                android:layout_toStartOf="@+id/coordY"
+                android:layout_alignBottom="@+id/btnStep" />
+            <EditText
+                android:layout_width="37dp"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                android:id="@+id/coordY"
+                android:layout_toStartOf="@+id/btnStep"
+                android:layout_alignTop="@+id/coordX"
+                android:layout_centerHorizontal="true"
+                android:layout_alignBottom="@+id/btnStep" />
+
+
+        </RelativeLayout>
+
+        <HorizontalScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:weightSum="5"
-            android:baselineAligned="false">
+            android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:weightSum="5"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/tytCoordinates"
-                    android:layout_weight="3"
-                    android:id="@+id/coordinatesText" />
-                 <LinearLayout
-                     android:layout_width="115dp"
-                     android:layout_height="wrap_content"
-                     android:orientation="vertical">
-                    <EditText
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:id="@+id/coordX" />
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:id="@+id/coordY" />
-                 </LinearLayout>
+                android:orientation="horizontal"
+                android:id="@+id/horizontal_layout">
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="4">
+        </HorizontalScrollView>
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txtStep"
-                    android:id="@+id/btnStep" />
-
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txtreset"
-                    android:id="@+id/btnReset" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-</LinearLayout>

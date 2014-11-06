@@ -3,9 +3,12 @@ package blokusgame.mi.android.hazi.blokus;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +25,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
     private Player player1 = new PlayerHuman(1);
     private PlayerAlgorithm player2 = new PlayerAlgorithm(2);
     private BoardView boardView;
+    private BlockViewOnClickListener blockClickListener = new BlockViewOnClickListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,15 @@ public class MainActivity extends Activity implements BoardTouchListener {
         boardView.setWasTouchedListener(this);
 
         boardView.setCorners(player1.getCorners());
+
+        LinearLayout horizontal_scroll = (LinearLayout) findViewById(R.id.horizontal_layout);
+        for(int i=0; i<30; ++i) {
+            ImageView imageView = new ImageView(this);
+            imageView.setBackgroundResource(R.drawable.ic_launcher);
+            imageView.setId(i);
+            imageView.setOnClickListener(blockClickListener);
+            horizontal_scroll.addView(imageView);
+        }
 
         Button btnStep = (Button) findViewById(R.id.btnStep);
         btnStep.setOnClickListener(new View.OnClickListener() {
@@ -83,5 +96,12 @@ public class MainActivity extends Activity implements BoardTouchListener {
         coordX.setText(String.valueOf(x));
         EditText coordY = (EditText) findViewById(R.id.coordY);
         coordY.setText(String.valueOf(y));
+    }
+
+    public class BlockViewOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            Log.e("CLICKED:", String.valueOf(view.getId()));
+        }
     }
 }

@@ -89,6 +89,10 @@ public class Map {
         return true;
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 82a5fd65cea56981d54072b1ad8afec90f583aad
     public boolean isPlaceable(Block block, ArrayList<Point> corners, Point pt){
         // megnezi, hogy tenylegesen odaillik e
         isPlaceable(block, pt);
