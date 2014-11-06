@@ -142,5 +142,13 @@ public class BoardView extends View {
         listeners.add(listener);
     }
 
+    @Override
+    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
+        int halfWidth = (MeasureSpec.getSize(widthMeasureSpec)) - 5;
+
+        this.setMeasuredDimension(halfWidth, halfWidth);
+    }
+
 }
 

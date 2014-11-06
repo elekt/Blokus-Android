@@ -9,109 +9,83 @@
         sothree:panelHeight="68dp"
         sothree:shadowHeight="4dp"
         tools:context=".MainActivity">
-        <LinearLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="10"
             android:orientation="vertical">
-
-            <LinearLayout
+           <View.BoardView
+                android:id="@+id/boardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/playerTurn"
+                android:textColor="#ff063dff"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/playerTxt"
+                android:layout_below="@+id/boardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="4">
-                <View.BoardView
-                    android:id="@+id/boardView"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" />
-            </LinearLayout>
+                android:text="@string/txtBlockindex"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/blockText"
+                android:layout_below="@+id/playerTurn"
+                android:layout_alignParentStart="true" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/blockIndex"
+                android:inputType="number"
+                android:layout_alignBottom="@+id/blockText"
+                android:layout_toEndOf="@+id/blockText" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/tytCoordinates"
+                android:id="@+id/coordinatesText"
+                android:layout_below="@+id/blockText"
+                android:layout_alignParentStart="true" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txtStep"
+                android:id="@+id/btnStep"
+                android:layout_below="@+id/blockIndex"
+                android:layout_toStartOf="@+id/btnReset" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txtreset"
+                android:id="@+id/btnReset"
+                android:layout_alignTop="@+id/btnStep"
+                android:layout_alignParentEnd="true" />
+
+            <EditText
+                android:layout_width="37dp"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="6">
-
-                <TextView
-                    android:id="@+id/playerTurn"
-                    android:textColor="#ff063dff"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/playerTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txtBlockindex"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:id="@+id/blockText" />
-
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/blockIndex"
-                        android:inputType="number" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:weightSum="5"
-                    android:baselineAligned="false">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:weightSum="5"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="@string/tytCoordinates"
-                            android:layout_weight="3"
-                            android:id="@+id/coordinatesText" />
-                        <LinearLayout
-                            android:layout_width="115dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <EditText
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="number"
-                                android:id="@+id/coordX" />
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="number"
-                                android:id="@+id/coordY" />
-                        </LinearLayout>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="4">
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/txtStep"
-                            android:id="@+id/btnStep" />
+                android:inputType="number"
+                android:id="@+id/coordX"
+                android:layout_below="@+id/blockIndex"
+                android:layout_toEndOf="@+id/coordinatesText"
+                android:layout_toStartOf="@+id/coordY"
+                android:layout_alignBottom="@+id/btnStep" />
+            <EditText
+                android:layout_width="37dp"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                android:id="@+id/coordY"
+                android:layout_toStartOf="@+id/btnStep"
+                android:layout_alignTop="@+id/coordX"
+                android:layout_centerHorizontal="true"
+                android:layout_alignBottom="@+id/btnStep" />
 
 
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/txtreset"
-                            android:id="@+id/btnReset" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
 
         <HorizontalScrollView
             android:layout_width="wrap_content"
@@ -124,3 +98,67 @@
             </LinearLayout>
         </HorizontalScrollView>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+   <!-- <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="5"
+        android:baselineAligned="false">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="4">
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <SlidingDrawer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:content="@+id/content"
+        android:handle="@+id/handle"
+        android:id="@+id/slidingDrawer"
+        android:layout_gravity="center_horizontal">
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"></LinearLayout>
+
+        <Button
+            android:id="@+id/handle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Handle" />
+    </SlidingDrawer>
+    </LinearLayout> -->
