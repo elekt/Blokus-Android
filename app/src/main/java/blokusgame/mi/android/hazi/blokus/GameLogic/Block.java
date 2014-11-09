@@ -1,6 +1,8 @@
 package blokusgame.mi.android.hazi.blokus.GameLogic;
 
+import android.media.Image;
 import android.util.Log;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -8,9 +10,11 @@ import java.util.ArrayList;
  * Created by elekt on 2014.10.21..
  */
 public class Block {
-    public Block(ArrayList<Point> _points, int _color){
+    public Block(ArrayList<Point> _points, int _color, int _imageId, int _id){
         color = _color;
         points = _points;
+        imageId = _imageId;
+        id = _id;
     }
 
     public void turn(int degrees){
@@ -73,7 +77,12 @@ public class Block {
     public Point getPoint(int idx){ return points.get(idx); }
     public int getSize(){ return points.size(); }
     public int getColor() {return color;}
+    public int getImageId(){ return imageId; }
+    public int getId(){ return id; }
+
 
     private ArrayList<Point> points = new ArrayList<Point>();
     private int color;
+    private int imageId;
+    private int id;
 }

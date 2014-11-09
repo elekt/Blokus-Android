@@ -2,6 +2,7 @@ package blokusgame.mi.android.hazi.blokus.GameLogic;
 
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -81,19 +82,35 @@ public abstract class Player {
         return false;
     }
 
-    public boolean placeBlock(int blockIndex, Point coord){
-        Block block = blocks.get(blockIndex);
+    public boolean placeBlock(int blockId, Point coord){
+        Block block = getBlock(blockId);
+        if(block == null){
+            Log.e("BLOCKS", "BLOCK ALREADY REMOVED");
+        }
         // lerakja a blockot
         Map map = Map.getInstance();
         for(int i = 0; i<block.getSize(); ++i){
             Point temp = new Point(coord.x +  block.getPoint(i).x, coord.y + block.getPoint(i).y);
             map.setCell(block.getColor(), temp);
         }
-        blocks.remove(blockIndex);
+        blocks.remove(block);
         Map.getInstance().incStep();
         fillCorners();
 
         return true;
+    }
+
+    public Block getBlock(int blockId) {
+        for(int i = 0; i<blocks.size(); ++i){
+            if(blocks.get(i).getId()==blockId){
+                return blocks.get(i);
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Block> getBlocks(){
+        return blocks;
     }
 
     protected ArrayList<Block> blocks;

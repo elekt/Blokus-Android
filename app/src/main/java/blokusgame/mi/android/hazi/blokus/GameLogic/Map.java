@@ -92,13 +92,14 @@ public class Map {
 
 
     public boolean isPlaceable(Block block, ArrayList<Point> corners, Point pt){
-        isPlaceable(block, pt);
+        if(isPlaceable(block, pt)==false)
+            return false;
         for(int i = 0; i<block.getSize(); ++i){//minden elem a blockban
-            if(corners.contains(block.getPoint(i))){
+            if(corners.contains(new Point(block.getPoint(i).x+pt.x, block.getPoint(i).y+pt.y))){
                 return true;
             }
         }
-        return true;
+        return false;
     }
 
     public int gameEnd(){ return 0; }
