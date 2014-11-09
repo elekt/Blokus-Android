@@ -11,6 +11,7 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+import blokusgame.mi.android.hazi.blokus.GameLogic.Block;
 import blokusgame.mi.android.hazi.blokus.GameLogic.Map;
 import blokusgame.mi.android.hazi.blokus.GameLogic.PlayerConstants;
 import blokusgame.mi.android.hazi.blokus.GameLogic.Point;
@@ -24,7 +25,12 @@ public class BoardView extends View {
     private Paint paintBg;
     private Paint paintLine;
     private Paint paintRect;
+    private Paint paintOverlay;
+
     private ArrayList<Point> corners;
+
+    private Block overlayBlock = null;
+    private Point overlayPos = null;
 
     public BoardView(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -42,6 +48,10 @@ public class BoardView extends View {
         paintRect.setColor(Color.CYAN);
         paintRect.setStyle(Paint.Style.FILL);
 
+        paintOverlay = new Paint();
+        paintOverlay.setColor(Color.GREEN);
+        paintOverlay.setStyle(Paint.Style.FILL);
+        paintOverlay.setAlpha(10);
     }
 
     @Override
@@ -55,6 +65,10 @@ public class BoardView extends View {
         drawPlayers(canvas);
 
         drawCorners(canvas);
+
+        if (overlayBlock != null) {
+            drawOverlayBlock(canvas);
+        }
     }
 
     private void drawGameArea(Canvas canvas) {
@@ -101,6 +115,23 @@ public class BoardView extends View {
             Rect rect = new Rect(x, y, x + (getWidth() / map.getLineSize()), y + (getHeight() / map.getLineSize()));
             canvas.drawRect(rect, paintRect);
         }
+    }
+
+
+    private void drawOverlayBlock(Canvas canvas) {
+        Map map = Map.getInstance();
+
+        int drawColor = (map.isPlaceable(overlayBlock, corners, overlayPos))? Color.GREEN:Color.RED;
+        paintOverlay.setColor(drawColor);
+
+        for(int i = 0; i<overlayBlock.getSize(); ++i){
+            Point temp = new Point(overlayPos.x +  overlayBlock.getPoint(i).x, overlayPos.y + overlayBlock.getPoint(i).y);
+            int x = temp.x * (getWidth() / map.getLineSize());
+            int y = temp.y * (getHeight() / map.getLineSize());
+            Rect rect = new Rect(x, y, x + (getWidth() / map.getLineSize()), y + (getHeight() / map.getLineSize()));
+            canvas.drawRect(rect, paintOverlay);
+        }
+
     }
 
     private int getColor(int cell) {
@@ -150,5 +181,10 @@ public class BoardView extends View {
         this.setMeasuredDimension(halfWidth, halfWidth);
     }
 
+    // when the player have choosen a block, but havent put down yes
+    public void setOverlayBlock(Block block, Point pt) {
+        overlayBlock = block;
+        overlayPos = pt;
+    }
 }
 

@@ -89,19 +89,13 @@ public class Map {
         return true;
     }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 82a5fd65cea56981d54072b1ad8afec90f583aad
+
     public boolean isPlaceable(Block block, ArrayList<Point> corners, Point pt){
-        // megnezi, hogy tenylegesen odaillik e
-        isPlaceable(block, pt);
-
-        // megnezi, hogy hozzaer-e sarokhoz
-        for(int i = 0; i<block.getSize(); ++i){
-            Point temp = new Point(pt.x +  block.getPoint(i).x, pt.y + block.getPoint(i).y);
-
-            if(corners.contains(temp)){
+        if(isPlaceable(block, pt)==false)
+            return false;
+        for(int i = 0; i<block.getSize(); ++i){//minden elem a blockban
+            if(corners.contains(new Point(block.getPoint(i).x+pt.x, block.getPoint(i).y+pt.y))){
                 return true;
             }
         }
