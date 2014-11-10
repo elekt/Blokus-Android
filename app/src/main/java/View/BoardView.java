@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -32,6 +33,8 @@ public class BoardView extends View {
     private Block overlayBlock = null;
     private Point overlayPos = null;
 
+    private GestureDetector gestureDetector;
+
     public BoardView(Context context, AttributeSet attrs){
         super(context, attrs);
 
@@ -52,6 +55,8 @@ public class BoardView extends View {
         paintOverlay.setColor(Color.GREEN);
         paintOverlay.setStyle(Paint.Style.FILL);
         paintOverlay.setAlpha(10);
+
+        gestureDetector = new GestureDetector(context, new BoardGestureListener(this, listeners));
 
     }
 
@@ -157,17 +162,7 @@ public class BoardView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-
-            int tX = ((int) event.getX()) / (getWidth() / Map.getInstance().getLineSize());
-            int tY = ((int) event.getY()) / (getHeight() / Map.getInstance().getLineSize());
-
-            for (BoardTouchListener listener:listeners){
-                listener.onBoardTouched(tX,tY);
-            }
-        }
-
-        return super.onTouchEvent(event);
+        return gestureDetector.onTouchEvent(event);
     }
 
     public void setWasTouchedListener(BoardTouchListener listener){
