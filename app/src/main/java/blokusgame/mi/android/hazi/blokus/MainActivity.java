@@ -1,17 +1,13 @@
 package blokusgame.mi.android.hazi.blokus;
 
 import android.app.Activity;
-import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -39,7 +35,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
     private EditText coordXEditText;
     private EditText coordYEditText;
 
-    private ImageView choosenBlock;
+    private ImageView choosenBlock = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +44,6 @@ public class MainActivity extends Activity implements BoardTouchListener {
 
         boardView = (BoardView) findViewById(R.id.boardView);
         boardView.setWasTouchedListener(this);
-
-        boardView.setCorners(player1.getCorners());
 
         horizontal_scroll = (LinearLayout) findViewById(R.id.horizontal_layout);
         blockIndexEditText = (EditText) findViewById(R.id.blockIndex);
@@ -81,30 +75,42 @@ public class MainActivity extends Activity implements BoardTouchListener {
         int blockIndex = Integer.valueOf(blockIndexEditText.getText().toString());
         int coordx = Integer.valueOf(coordXEditText.getText().toString());
         int coordy = Integer.valueOf(coordYEditText.getText().toString());
-
-        TextView turnText = (TextView) findViewById(R.id.playerTurn);
         Point coord = new Point(coordx, coordy);
-        if(map.getSteps()%2==0){
-             if(player1.placeBlock(blockIndex, coord)) {
-                turnText.setTextColor(Color.RED);
-                turnText.setText("Player2");
-                boardView.setCorners(player2.getCorners());
-                horizontal_scroll.removeView(choosenBlock);
-             } else {
-                 Toast.makeText(getApplicationContext(), "Can't place there", Toast.LENGTH_SHORT).show();
-                 return false;
-             }
-        } else {
+
+        if(player1.placeBlock(blockIndex, coord)){
+            boardView.setOverlayBlock(null, null);
+            horizontal_scroll.removeView(choosenBlock);
+            boardView.setCorners(player2.getCorners());
+            // AI jatekos lepese
             player2.nextStep();
-            turnText.setTextColor(Color.BLUE);
-            turnText.setText("Player1");
             boardView.setCorners(player1.getCorners());
         }
+
+        // TODO, most csak egyjatekos mod van
+//        TextView turnText = (TextView) findViewById(R.id.playerTurn);
+//        if(map.getSteps()%2==0){
+//             if(player1.placeBlock(blockIndex, coord)) {
+//                turnText.setTextColor(Color.RED);
+//                turnText.setText("Player2");
+//                boardView.setCorners(player2.getCorners());
+//                horizontal_scroll.removeView(choosenBlock);
+//             } else {
+//                 Toast.makeText(getApplicationContext(), "Can't place there", Toast.LENGTH_SHORT).show();
+//                 return false;
+//             }
+//        } else {
+//            player2.nextStep();
+//            turnText.setTextColor(Color.BLUE);
+//            turnText.setText("Player1");
+//            boardView.setCorners(player1.getCorners());
+//        }
         return true;
     }
 
     void setPlayer(Player player){
         ArrayList<Block> blocks = player.getBlocks();
+
+        boardView.setCorners(player1.getCorners());
 
         for (Block block : blocks) {
             ImageView imageView = new ImageView(this);
@@ -121,16 +127,27 @@ public class MainActivity extends Activity implements BoardTouchListener {
         coordX.setText(String.valueOf(x));
         EditText coordY = (EditText) findViewById(R.id.coordY);
         coordY.setText(String.valueOf(y));
+        int cX = Integer.valueOf(coordX.getText().toString());
+        int cY = Integer.valueOf(coordY.getText().toString());
+        if(choosenBlock!=null) {
+            boardView.setOverlayBlock(player1.getBlock(choosenBlock.getId()), new Point(cX, cY));
+            boardView.invalidate();
+        }
     }
 
+    // a felcsuszo ablakon a block kepeket kezeli
     public class BlockViewOnClickListener implements OnClickListener {
         @Override
         public void onClick(View view) {
             blockIndexEditText.setText(String.valueOf(view.getId()));
-            int coordx = Integer.valueOf(coordXEditText.getText().toString());
-            int coordy = Integer.valueOf(coordYEditText.getText().toString());
-            boardView.setOverlayBlock(player1.getBlock(view.getId()), new Point(coordx, coordy));
-            boardView.invalidate();
+            try {
+                int coordx = Integer.valueOf(coordXEditText.getText().toString());
+                int coordy = Integer.valueOf(coordYEditText.getText().toString());
+                boardView.setOverlayBlock(player1.getBlock(view.getId()), new Point(coordx, coordy));
+                boardView.invalidate();
+            }catch (NumberFormatException ex){
+                Toast.makeText(getApplicationContext(), "Set the coordinates too", Toast.LENGTH_SHORT).show();
+            }
             choosenBlock = (ImageView) view;
             Log.e("CLICKED:", String.valueOf(view.getId()));
         }

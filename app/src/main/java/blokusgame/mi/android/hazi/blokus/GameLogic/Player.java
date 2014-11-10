@@ -2,7 +2,6 @@ package blokusgame.mi.android.hazi.blokus.GameLogic;
 
 import android.util.Log;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -86,20 +85,22 @@ public abstract class Player {
         Block block = getBlock(blockId);
         if(block == null){
             Log.e("BLOCKS", "BLOCK ALREADY REMOVED");
+        } else {
+            // lerakja a blockot
+            Map map = Map.getInstance();
+            for (int i = 0; i < block.getSize(); ++i) {
+                Point temp = new Point(coord.x + block.getPoint(i).x, coord.y + block.getPoint(i).y);
+                map.setCell(block.getColor(), temp);
+            }
+            blocks.remove(block);
+            Map.getInstance().incStep();
+            fillCorners();
         }
-        // lerakja a blockot
-        Map map = Map.getInstance();
-        for(int i = 0; i<block.getSize(); ++i){
-            Point temp = new Point(coord.x +  block.getPoint(i).x, coord.y + block.getPoint(i).y);
-            map.setCell(block.getColor(), temp);
-        }
-        blocks.remove(block);
-        Map.getInstance().incStep();
-        fillCorners();
 
         return true;
     }
 
+    // !!!! INDEX ALAPJAN HIVATKOZUNK BLOCKOKRA
     public Block getBlock(int blockId) {
         for(int i = 0; i<blocks.size(); ++i){
             if(blocks.get(i).getId()==blockId){

@@ -13,11 +13,7 @@ public class PlayerHuman extends Player {
         if(Map.getInstance().getSteps()>=2)
             fillCorners();
 
-         // nem feltetlen a kezdopontnal kell lennie
-//        if(!corners.contains(coord)){
-//            return false;
-//        }
-        Block block = blocks.get(blockIndex);
+        Block block = getBlock(blockIndex);
         boolean isPlaceable = Map.getInstance().isPlaceable(block, corners, coord);
         if(!isPlaceable){
             return false;

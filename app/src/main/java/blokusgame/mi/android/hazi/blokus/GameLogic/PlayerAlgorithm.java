@@ -28,7 +28,10 @@ public class PlayerAlgorithm extends Player {
     @Override
     public boolean placeBlock(int blockIndex, Point coord) {
         Map map = Map.getInstance();
-        if(map.isPlaceable(blocks.get(blockIndex), coord)){
+        Block block = getBlock(blockIndex);
+        if(block==null)
+             return false;
+        if(map.isPlaceable(block, coord)){
             super.placeBlock(blockIndex, coord);
         }
         return true;
