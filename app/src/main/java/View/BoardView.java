@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -52,6 +54,7 @@ public class BoardView extends View {
         paintOverlay.setColor(Color.GREEN);
         paintOverlay.setStyle(Paint.Style.FILL);
         paintOverlay.setAlpha(10);
+
     }
 
     @Override
