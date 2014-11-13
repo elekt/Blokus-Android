@@ -83,13 +83,13 @@ public class BoardView extends View {
         canvas.drawRect(0, 0, getWidth(), getHeight(), paintLine);
 
         for(int i=0; i<map.getLineSize(); ++i) {        // height-1 horizontal lines
-            canvas.drawLine(0, i*getHeight() / map.getLineSize(), getWidth(), i*getHeight() / map.getLineSize(),
+            canvas.drawLine(0, i* ((float)getHeight() / map.getLineSize()), getWidth(), i* ((float)getHeight() / map.getLineSize()),
                     paintLine);
 
         }
 
-        for(int i=0; i<map.getLineSize(); ++i) {        // height-1 horizontal lines
-            canvas.drawLine(i*getWidth() / map.getLineSize(), 0, i*getWidth() / map.getLineSize(), getHeight(),
+        for(int i=0; i<map.getLineSize(); ++i) {
+            canvas.drawLine(i*((float)getWidth() / map.getLineSize()), 0, i*((float)getWidth() / map.getLineSize()), getHeight(),
                     paintLine);
         }
     }
@@ -104,7 +104,7 @@ public class BoardView extends View {
                     paintRect.setColor(getColor(cell));
                     int x = i * (getWidth() / map.getLineSize());
                     int y = j * (getHeight() / map.getLineSize());
-                    Rect rect = new Rect(x, y, x + (getWidth() / map.getLineSize()), y + (getHeight() / map.getLineSize()));
+                    Rect rect = new Rect(x, y, x + (int)((float)getWidth() / map.getLineSize()), y + (int)((float)getHeight() / map.getLineSize()));
                     canvas.drawRect(rect, paintRect);
                 }
             }
@@ -116,9 +116,9 @@ public class BoardView extends View {
         paintRect.setAlpha(160);
         Map map = Map.getInstance();
         for (Point corner : corners) {
-            int x = corner.x * (getWidth() / map.getLineSize());
-            int y = corner.y * (getHeight() / map.getLineSize());
-            Rect rect = new Rect(x, y, x + (getWidth() / map.getLineSize()), y + (getHeight() / map.getLineSize()));
+            float x = corner.x * ((float)getWidth() / map.getLineSize());
+            float y = corner.y * ((float)getHeight() / map.getLineSize());
+            Rect rect = new Rect((int)x, (int)y, (int)(x + ((float)getWidth() / map.getLineSize())), (int)(y + ((float)getHeight() / map.getLineSize())));
             canvas.drawRect(rect, paintRect);
         }
     }
@@ -132,9 +132,9 @@ public class BoardView extends View {
 
         for(int i = 0; i<overlayBlock.getSize(); ++i){
             Point temp = new Point(overlayPos.x +  overlayBlock.getPoint(i).x, overlayPos.y + overlayBlock.getPoint(i).y);
-            int x = temp.x * (getWidth() / map.getLineSize());
-            int y = temp.y * (getHeight() / map.getLineSize());
-            Rect rect = new Rect(x, y, x + (getWidth() / map.getLineSize()), y + (getHeight() / map.getLineSize()));
+            float x = temp.x * ((float)getWidth() / map.getLineSize());
+            float y = temp.y * ((float)getHeight() / map.getLineSize());
+            Rect rect = new Rect((int)x, (int)y, (int)(x + ((float)getWidth() / map.getLineSize())), (int)(y + ((float)getHeight() / map.getLineSize())));
             canvas.drawRect(rect, paintOverlay);
         }
 
