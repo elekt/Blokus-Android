@@ -135,7 +135,7 @@ public class BoardView extends View {
             float x = temp.x * ((float)getWidth() / map.getLineSize());
             float y = temp.y * ((float)getHeight() / map.getLineSize());
             Rect rect = new Rect((int)x, (int)y, (int)(x + ((float)getWidth() / map.getLineSize())), (int)(y + ((float)getHeight() / map.getLineSize())));
-            canvas.drawRect(rect, paintOverlay);
+            canvas.drawRect(rect, paintOverlay); 
         }
 
     }
