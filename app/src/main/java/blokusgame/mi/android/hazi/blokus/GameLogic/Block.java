@@ -1,8 +1,6 @@
 package blokusgame.mi.android.hazi.blokus.GameLogic;
 
-import android.media.Image;
 import android.util.Log;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -79,7 +77,10 @@ public class Block {
     public int getColor() {return color;}
     public int getImageId(){ return imageId; }
     public int getId(){ return id; }
-
+    // TODO
+    public ArrayList<Block> getRotations() {
+        return null;
+    }
 
     private ArrayList<Point> points = new ArrayList<Point>();
     private int color;

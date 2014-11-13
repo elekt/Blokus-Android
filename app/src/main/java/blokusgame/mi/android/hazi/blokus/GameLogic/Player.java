@@ -109,16 +109,12 @@ public abstract class Player {
         }
         return null;
     }
-
-    public ArrayList<Block> getBlocks(){
-        return blocks;
+    public ArrayList<Point> getCorners() {
+        return corners;
     }
 
     protected ArrayList<Block> blocks;
     protected ArrayList<Point> corners;
     protected int color;
 
-    public ArrayList<Point> getCorners() {
-        return corners;
-    }
 }

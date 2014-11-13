@@ -29,6 +29,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
     private PlayerAlgorithm player2 = new PlayerAlgorithm(2);
 
     private LinearLayout horizontal_scroll;
+    private LinearLayout rotations_layout;
     private BoardView boardView;
     private BlockViewOnClickListener blockClickListener = new BlockViewOnClickListener();
     private EditText blockIndexEditText;
@@ -46,6 +47,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
         boardView.setWasTouchedListener(this);
 
         horizontal_scroll = (LinearLayout) findViewById(R.id.horizontal_layout);
+        rotations_layout = (LinearLayout) findViewById(R.id.rotations_layout);
         blockIndexEditText = (EditText) findViewById(R.id.blockIndex);
         coordXEditText = (EditText)findViewById(R.id.coordX);
         coordYEditText = (EditText)findViewById(R.id.coordY);
@@ -108,7 +110,14 @@ public class MainActivity extends Activity implements BoardTouchListener {
     }
 
     void setPlayer(Player player){
-        ArrayList<Block> blocks = player.getBlocks();
+        ArrayList<Block> blocks = new ArrayList<Block>();
+
+        for(int i=0; i<21; ++i){
+            Block block = player.getBlock(i);
+            if(block!=null){
+                blocks.add(block);
+            }
+        }
 
         boardView.setCorners(player1.getCorners());
 
@@ -119,6 +128,10 @@ public class MainActivity extends Activity implements BoardTouchListener {
             imageView.setOnClickListener(blockClickListener);
             horizontal_scroll.addView(imageView);
         }
+    }
+
+    void setBlockRotations(Block block){
+        ArrayList<Block> rotations = block.getRotations();
     }
 
     @Override
