@@ -51,7 +51,7 @@ public class Map {
     // lehetne private?
     public void incStep(){ ++steps; }
 
-    public int getLineSize(){ return lineSize; }
+    public float getLineSize(){ return (float)lineSize; }
 
 
     // cornerek nelkul

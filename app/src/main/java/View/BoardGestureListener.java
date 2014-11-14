@@ -24,8 +24,8 @@ public class BoardGestureListener extends GestureDetector.SimpleOnGestureListene
         Log.e("PRESS HAPPENED", "PRESS");
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-            int tX = ((int) event.getX()) / (boardView.getWidth() / Map.getInstance().getLineSize());
-            int tY = ((int) event.getY()) / (boardView.getHeight() / Map.getInstance().getLineSize());
+            int tX = (int) (event.getX() / (boardView.getWidth() / Map.getInstance().getLineSize()));
+            int tY = (int) (event.getY() / (boardView.getHeight() / Map.getInstance().getLineSize()));
 
             for (BoardTouchListener listener:listeners){
                 listener.onBoardTouched(tX,tY);
