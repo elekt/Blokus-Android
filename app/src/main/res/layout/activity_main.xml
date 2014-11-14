@@ -28,36 +28,12 @@
                 android:layout_below="@+id/boardView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txtBlockindex"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/blockText"
-                android:layout_below="@+id/playerTurn"
-                android:layout_alignParentStart="true" />
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/blockIndex"
-                android:inputType="number"
-                android:layout_alignBottom="@+id/blockText"
-                android:layout_toEndOf="@+id/blockText" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/tytCoordinates"
-                android:id="@+id/coordinatesText"
-                android:layout_below="@+id/blockText"
-                android:layout_alignParentStart="true" />
-
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txtStep"
                 android:id="@+id/btnStep"
-                android:layout_below="@+id/blockIndex"
+                android:layout_below="@+id/playerTurn"
                 android:layout_toStartOf="@+id/btnReset" />
             <Button
                 android:layout_width="wrap_content"
@@ -66,25 +42,6 @@
                 android:id="@+id/btnReset"
                 android:layout_alignTop="@+id/btnStep"
                 android:layout_alignParentEnd="true" />
-
-            <EditText
-                android:layout_width="37dp"
-                android:layout_height="match_parent"
-                android:inputType="number"
-                android:id="@+id/coordX"
-                android:layout_below="@+id/blockIndex"
-                android:layout_toEndOf="@+id/coordinatesText"
-                android:layout_toStartOf="@+id/coordY"
-                android:layout_alignBottom="@+id/btnStep" />
-            <EditText
-                android:layout_width="37dp"
-                android:layout_height="match_parent"
-                android:inputType="number"
-                android:id="@+id/coordY"
-                android:layout_toStartOf="@+id/btnStep"
-                android:layout_alignTop="@+id/coordX"
-                android:layout_centerHorizontal="true"
-                android:layout_alignBottom="@+id/btnStep" />
             <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">

@@ -72,7 +72,7 @@ public class BoardView extends View {
 
         drawCorners(canvas);
 
-        if (overlayBlock != null) {
+        if (overlayBlock != null && overlayPos != null) {
             drawOverlayBlock(canvas);
         }
     }
