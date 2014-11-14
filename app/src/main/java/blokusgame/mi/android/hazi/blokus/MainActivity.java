@@ -70,6 +70,10 @@ public class MainActivity extends Activity implements BoardTouchListener {
             @Override
             public void onClick(View v) {
                 map.reset();
+                // TODO tobbjatekosra
+                player1 = new PlayerHuman(1);
+                player2 = new PlayerAlgorithm(2);
+                boardView.setCorners(player1.getCorners());
                 boardView.invalidate();
             }
         });
@@ -125,8 +129,9 @@ public class MainActivity extends Activity implements BoardTouchListener {
     @Override
     public void onBoardTouched(int x, int y) {
         coord = new Point(x,y);
+        Log.e("Cell coordinates:", String.valueOf(x)+" "+String.valueOf(y));
         if(choosenBlock!=null) {
-            boardView.setOverlayBlock(player1.getBlock(choosenBlock.getId()), coord);
+            boardView.setOverlayBlock(player1.getBlock(blockIndex), coord);
             boardView.invalidate();
         }
     }
