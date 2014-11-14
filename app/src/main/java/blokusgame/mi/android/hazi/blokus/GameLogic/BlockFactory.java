@@ -19,6 +19,7 @@ public class BlockFactory {
         blocks.add(create3L(color));
         blocks.add(create4I(color));
         blocks.add(create4T(color));
+        blocks.add(create4L(color));
         blocks.add(create4Z(color));
         blocks.add(create4O(color));
         blocks.add(create5I(color));
@@ -82,6 +83,15 @@ public class BlockFactory {
         points.add(new Point(0, 2));
         points.add(new Point(1, 1));
         int imageId = R.drawable.t_4;
+        return new Block(points, color, imageId, 5);
+    }
+    private static Block create4L(int color){
+        ArrayList<Point> points = new ArrayList<Point>();
+        points.add(new Point(0, 0));
+        points.add(new Point(1, 0));
+        points.add(new Point(2, 0));
+        points.add(new Point(2, 1));
+        int imageId = R.drawable.l_4;
         return new Block(points, color, imageId, 5);
     }
     private static Block create4Z(int color){
