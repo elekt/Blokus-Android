@@ -1,6 +1,7 @@
 package blokusgame.mi.android.hazi.blokus;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -56,6 +57,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
         horizontal_scroll = (LinearLayout) findViewById(R.id.horizontal_layout);
         rotations_layout = (LinearLayout) findViewById(R.id.rotations_layout);
         slidingUpLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+        slidingUpLayout.setCoveredFadeColor(Color.TRANSPARENT);
 
         setPlayer(player1);
 
@@ -93,6 +95,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
                 // AI jatekos lepese
                 player2.nextStep();
                 boardView.setCorners(player1.getCorners());
+                slidingUpLayout.expandPanel();
             }
         } else{
             Toast.makeText(getApplicationContext(), "Block, or cell not selected", Toast.LENGTH_SHORT).show();
