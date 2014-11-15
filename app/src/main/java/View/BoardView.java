@@ -27,6 +27,7 @@ public class BoardView extends View {
     private Paint paintBg;
     private Paint paintLine;
     private Paint paintRect;
+    private Paint paintCircle;
     private Paint paintOverlay;
 
     private ArrayList<Point> corners;
@@ -51,6 +52,11 @@ public class BoardView extends View {
         paintRect = new Paint();
         paintRect.setColor(Color.CYAN);
         paintRect.setStyle(Paint.Style.FILL);
+
+        paintCircle = new Paint();
+        paintCircle.setColor(Color.YELLOW);
+        paintCircle.setStyle(Paint.Style.FILL);
+        paintCircle.setAlpha(200);
 
         paintOverlay = new Paint();
         paintOverlay.setColor(Color.GREEN);
@@ -119,7 +125,7 @@ public class BoardView extends View {
         for (Point corner : corners) {
             float x = corner.x * ((float)getWidth() / map.getLineSize());
             float y = corner.y * ((float)getHeight() / map.getLineSize());
-            Rect rect = new Rect((int)x, (int)y, (int)(x + ((float)getWidth() / map.getLineSize())), (int)(y + ((float)getHeight() / map.getLineSize())));
+            Rect rect = new Rect((int)x, (int)y, (int)(x + (getWidth() / map.getLineSize())), (int)(y + (getHeight() / map.getLineSize())));
             canvas.drawRect(rect, paintRect);
         }
     }
@@ -135,8 +141,14 @@ public class BoardView extends View {
             Point temp = new Point(overlayPos.x +  overlayBlock.getPoint(i).x, overlayPos.y + overlayBlock.getPoint(i).y);
             int x = (int)(temp.x * ((float)getWidth() / map.getLineSize()));
             int y = (int)(temp.y * ((float)getHeight() / map.getLineSize()));
-            Rect rect = new Rect((int)x, (int)y, (int)(x + ((float)getWidth()/map.getLineSize())), (int)(y + ((float)getHeight() / map.getLineSize())));
-            canvas.drawRect(rect, paintOverlay); 
+            // drawing a rectangle of the block
+            Rect rect = new Rect(x, y, (int)(x + (getWidth()/map.getLineSize())), (int)(y + (getHeight() / map.getLineSize())));
+            canvas.drawRect(rect, paintOverlay);
+            if(overlayBlock.getPoint(i).x == 0 && overlayBlock.getPoint(i).y == 0) {
+                int cellSize = (int)((getWidth()/map.getLineSize())/2);
+                Log.e("CELLSIZE: ", String.valueOf(cellSize));
+                canvas.drawCircle(x + cellSize, y + cellSize, cellSize, paintCircle);
+            }
         }
 
     }

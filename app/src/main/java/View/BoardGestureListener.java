@@ -21,7 +21,7 @@ public class BoardGestureListener extends GestureDetector.SimpleOnGestureListene
 
     @Override
     public boolean onDown(MotionEvent event) {
-        Log.e("PRESS HAPPENED", "PRESS");
+        //Log.e("PRESS HAPPENED", "PRESS");
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
             int tX = (int) (event.getX() / (boardView.getWidth() / Map.getInstance().getLineSize()));
