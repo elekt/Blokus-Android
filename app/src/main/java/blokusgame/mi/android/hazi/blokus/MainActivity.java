@@ -7,10 +7,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
 
     private LinearLayout horizontal_scroll;
     private LinearLayout rotations_layout;
+    private SlidingUpPanelLayout slidingUpLayout;
     private BoardView boardView;
     private BlockViewOnClickListener blockClickListener = new BlockViewOnClickListener();
 
@@ -53,6 +55,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
 
         horizontal_scroll = (LinearLayout) findViewById(R.id.horizontal_layout);
         rotations_layout = (LinearLayout) findViewById(R.id.rotations_layout);
+        slidingUpLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
 
         setPlayer(player1);
 
@@ -75,7 +78,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
                 setPlayer(player1);
                 player2 = new PlayerAlgorithm(2);
                 boardView.setCorners(player1.getCorners());
-                boardView.setOverlayBlock(null,null);
+                boardView.setOverlayBlock(null, null);
                 boardView.invalidate();
             }
         });
@@ -150,6 +153,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
                 Toast.makeText(getApplicationContext(), "Set the coordinates too", Toast.LENGTH_SHORT).show();
             }
             choosenBlock = (ImageView) view;
+            slidingUpLayout.collapsePanel();
         }
     }
 }
