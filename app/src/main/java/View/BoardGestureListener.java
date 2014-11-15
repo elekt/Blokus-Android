@@ -39,4 +39,5 @@ public class BoardGestureListener extends GestureDetector.SimpleOnGestureListene
         Log.e("FLING HAPPENED", "FLING");
         return true;
     }
+
 }

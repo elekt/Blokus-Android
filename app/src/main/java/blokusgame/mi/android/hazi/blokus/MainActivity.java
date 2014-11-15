@@ -72,8 +72,10 @@ public class MainActivity extends Activity implements BoardTouchListener {
                 map.reset();
                 // TODO tobbjatekosra
                 player1 = new PlayerHuman(1);
+                setPlayer(player1);
                 player2 = new PlayerAlgorithm(2);
                 boardView.setCorners(player1.getCorners());
+                boardView.setOverlayBlock(null,null);
                 boardView.invalidate();
             }
         });
@@ -97,7 +99,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
 
     void setPlayer(Player player){
         ArrayList<Block> blocks = new ArrayList<Block>();
-
+        horizontal_scroll.removeAllViews();
         for(int i=0; i<21; ++i){
             Block block = player.getBlock(i);
             if(block!=null){
