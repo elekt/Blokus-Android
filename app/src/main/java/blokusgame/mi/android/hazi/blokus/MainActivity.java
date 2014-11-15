@@ -111,6 +111,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
             if(block!=null){
                 blocks.add(block);
             }
+            slidingUpLayout.expandPanel();
         }
 
         boardView.setCorners(player1.getCorners());
