@@ -1,7 +1,5 @@
 package blokusgame.mi.android.hazi.blokus.GameLogic;
 
-import android.widget.ImageView;
-
 import java.util.ArrayList;
 
 import blokusgame.mi.android.hazi.blokus.R;
@@ -92,7 +90,7 @@ public class BlockFactory {
         points.add(new Point(2, 0));
         points.add(new Point(2, 1));
         int imageId = R.drawable.l_4;
-        return new Block(points, color, imageId, 5);
+        return new Block(points, color, imageId, 6);
     }
     private static Block create4Z(int color){
         ArrayList<Point> points = new ArrayList<Point>();
@@ -101,7 +99,7 @@ public class BlockFactory {
         points.add(new Point(1, 1));
         points.add(new Point(1, 2));
         int imageId = R.drawable.z_4;
-        return new Block(points, color, imageId, 6);
+        return new Block(points, color, imageId, 7);
     }
     private static Block create4O(int color){
         ArrayList<Point> points = new ArrayList<Point>();
@@ -110,7 +108,7 @@ public class BlockFactory {
         points.add(new Point(1, 0));
         points.add(new Point(1, 1));
         int imageId = R.drawable.o_4;
-        return new Block(points, color, imageId, 7);
+        return new Block(points, color, imageId, 8);
     }
     private static Block create5I(int color){
         ArrayList<Point> points = new ArrayList<Point>();
@@ -120,7 +118,7 @@ public class BlockFactory {
         points.add(new Point(3, 0));
         points.add(new Point(4, 0));
         int imageId = R.drawable.i_5;
-        return new Block(points, color, imageId, 8);
+        return new Block(points, color, imageId, 9);
     }
     private static Block create5L(int color){
         ArrayList<Point> points = new ArrayList<Point>();
@@ -130,7 +128,7 @@ public class BlockFactory {
         points.add(new Point(3, 0));
         points.add(new Point(3, 1));
         int imageId = R.drawable.l_5;
-        return new Block(points, color, imageId, 9);
+        return new Block(points, color, imageId, 10);
     }
     private static Block create5U(int color){
         ArrayList<Point> points = new ArrayList<Point>();
@@ -140,7 +138,7 @@ public class BlockFactory {
         points.add(new Point(1, 2));
         points.add(new Point(0, 2));
         int imageId = R.drawable.u_5;
-        return new Block(points, color, imageId, 10);
+        return new Block(points, color, imageId, 11);
     }
     private static Block create5Z(int color){
         ArrayList<Point> points = new ArrayList<Point>();
@@ -150,7 +148,7 @@ public class BlockFactory {
         points.add(new Point(2, 1));
         points.add(new Point(2, 2));
         int imageId = R.drawable.z_5;
-        return new Block(points, color, imageId, 11);
+        return new Block(points, color, imageId, 12);
     }
     private static Block create5T(int color){
         ArrayList<Point> points = new ArrayList<Point>();
@@ -160,7 +158,7 @@ public class BlockFactory {
         points.add(new Point(1, 1));
         points.add(new Point(2, 1));
         int imageId = R.drawable.t_5;
-        return new Block(points, color, imageId, 12);
+        return new Block(points, color, imageId, 13);
     }
     private static Block create5X(int color){
         ArrayList<Point> points = new ArrayList<Point>();
@@ -170,7 +168,7 @@ public class BlockFactory {
         points.add(new Point(-1, 1));
         points.add(new Point(1, 1));
         int imageId = R.drawable.x_5;
-        return new Block(points, color, imageId, 13);
+        return new Block(points, color, imageId, 14);
     }
     private static Block create5W(int color){
         ArrayList<Point> points = new ArrayList<Point>();
@@ -180,7 +178,7 @@ public class BlockFactory {
         points.add(new Point(1, 2));
         points.add(new Point(2, 2));
         int imageId = R.drawable.w_5;
-        return new Block(points, color, imageId, 14);
+        return new Block(points, color, imageId, 15);
     }
     private static Block create5V(int color){
         ArrayList<Point> points = new ArrayList<Point>();
@@ -190,7 +188,7 @@ public class BlockFactory {
         points.add(new Point(2, 1));
         points.add(new Point(2, 2));
         int imageId = R.drawable.v_5;
-        return new Block(points, color, imageId, 15);
+        return new Block(points, color, imageId, 16);
     }
     private static Block create5F(int color){
         ArrayList<Point> points = new ArrayList<Point>();
@@ -200,7 +198,7 @@ public class BlockFactory {
         points.add(new Point(1, 2));
         points.add(new Point(2, 1));
         int imageId = R.drawable.f_5;
-        return new Block(points, color, imageId, 16);
+        return new Block(points, color, imageId, 17);
     }
     private static Block create5P(int color){
         ArrayList<Point> points = new ArrayList<Point>();
@@ -210,7 +208,7 @@ public class BlockFactory {
         points.add(new Point(1, 1));
         points.add(new Point(2, 0));
         int imageId = R.drawable.p_5;
-        return new Block(points, color, imageId, 17);
+        return new Block(points, color, imageId, 18);
     }
     private static Block create5Y(int color){
         ArrayList<Point> points = new ArrayList<Point>();
@@ -220,7 +218,7 @@ public class BlockFactory {
         points.add(new Point(0, 3));
         points.add(new Point(1, 1));
         int imageId = R.drawable.y_5;
-        return new Block(points, color, imageId, 18);
+        return new Block(points, color, imageId, 19);
     }
     private static Block create5N(int color){
         ArrayList<Point> points = new ArrayList<Point>();
@@ -230,6 +228,6 @@ public class BlockFactory {
         points.add(new Point(1, 2));
         points.add(new Point(1, 3));
         int imageId = R.drawable.n_5;
-        return new Block(points, color, imageId, 19);
+        return new Block(points, color, imageId, 20);
     }
 }
