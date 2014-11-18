@@ -39,7 +39,9 @@ public class BlockView extends View{
         paintCell.setStyle(Paint.Style.FILL);
 
         for(int i=0; i<block.getSize(); ++i){
-            canvas.drawRect(center-(dimensions.x/2*cellSize), center-(dimensions.y/2 * cellSize), center-(dimensions.x/2*cellSize)+cellSize, center-(dimensions.y/2 * cellSize)+cellSize, paintCell);
+            float startX = center - block.getPoint(i).x*(dimensions.x/2.0f*cellSize);
+            float startY = center - block.getPoint(i).y*(dimensions.y/2.0f * cellSize);
+            canvas.drawRect(startX, startY, startX+cellSize, startY + cellSize, paintCell);
         }
     }
 
@@ -49,6 +51,8 @@ public class BlockView extends View{
         paintBg.setStyle(Paint.Style.FILL);
 
         canvas.drawRect(0, 0, getWidth(), getHeight(), paintBg);
+        paintBg.setColor(Color.DKGRAY);
+        canvas.drawRect(10,10,getWidth()-10, getHeight()-10, paintBg);
     }
 
     public void setBlock(Block _block){ block = _block; }
