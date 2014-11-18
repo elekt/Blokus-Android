@@ -63,6 +63,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
             blockView.setBlock(block);
             rotations_layout.addView(blockView);
         }
+        rotations_layout.invalidate();
 
 
         slidingUpLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);

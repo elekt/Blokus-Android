@@ -15,8 +15,8 @@ import blokusgame.mi.android.hazi.blokus.R;
  */
 public class BlockView extends View{
     private Block block;
-    private float cellSize = (getWidth()-2*getResources().getDimension(R.dimen.block_margin)) / 5.0f;
-    private float center = getWidth()/2;
+    private float cellSize;
+    private float center;
 
     public BlockView(Context context) {
         super(context);
@@ -25,6 +25,8 @@ public class BlockView extends View{
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        cellSize = (getWidth()-2*getResources().getDimension(R.dimen.block_margin)) / 5.0f;
+        center = getWidth()/2;
 
         drawBackGround(canvas);
         drawBlock(canvas);
@@ -57,6 +59,6 @@ public class BlockView extends View{
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
         int size = width > height ? height : width;
-        setMeasuredDimension(size, size);
+        setMeasuredDimension(200, 200);
     }
 }
