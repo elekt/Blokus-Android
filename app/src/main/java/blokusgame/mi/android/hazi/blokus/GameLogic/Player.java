@@ -81,8 +81,7 @@ public abstract class Player {
         return false;
     }
 
-    public boolean placeBlock(int blockId, Point coord){
-        Block block = getBlock(blockId);
+    public boolean placeBlock(Block block, Point coord){
         if(block == null){
             Log.e("BLOCKS", "BLOCK ALREADY REMOVED");
         } else {
@@ -92,7 +91,7 @@ public abstract class Player {
                 Point temp = new Point(coord.x + block.getPoint(i).x, coord.y + block.getPoint(i).y);
                 map.setCell(block.getColor(), temp);
             }
-            blocks.remove(block);
+            blocks.remove(getBlock(block.getId()));
             Map.getInstance().incStep();
             fillCorners();
         }

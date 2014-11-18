@@ -37,9 +37,11 @@ public class MainActivity extends Activity implements BoardTouchListener {
     private SlidingUpPanelLayout slidingUpLayout;
     private BoardView boardView;
     private BlockViewOnClickListener blockClickListener = new BlockViewOnClickListener();
+    private RotatedBlockViewOnClickListener rotatedBlockClickListener = new RotatedBlockViewOnClickListener();
 
-    private ImageView choosenBlock = null;
-    private Point coord = null;
+    private ImageView choosenBlockView = null;
+    private Point choosenPoint = null;
+    private Block choosenBlock = null;
     private int blockIndex = -1;
 
     @Override
@@ -89,10 +91,10 @@ public class MainActivity extends Activity implements BoardTouchListener {
     }
 
     private boolean step() {
-        if(blockIndex>=0 && coord!=null) {
-            if (player1.placeBlock(blockIndex, coord)) {
+        if(blockIndex>=0 && choosenPoint!=null) {
+            if (player1.placeBlock(choosenBlock, choosenPoint)) {
                 boardView.setOverlayBlock(null, null);
-                horizontal_scroll.removeView(choosenBlock);
+                horizontal_scroll.removeView(choosenBlockView);
                 boardView.setCorners(player2.getCorners());
                 rotations_layout.removeAllViews();
                 // AI jatekos lepese
@@ -130,10 +132,10 @@ public class MainActivity extends Activity implements BoardTouchListener {
 
     @Override
     public void onBoardTouched(int x, int y) {
-        coord = new Point(x,y);
+        choosenPoint = new Point(x,y);
         Log.e("Cell coordinates:", String.valueOf(x)+" "+String.valueOf(y));
-        if(choosenBlock!=null) {
-            boardView.setOverlayBlock(player1.getBlock(blockIndex), coord);
+        if(choosenBlockView!=null) {
+            boardView.setOverlayBlock(choosenBlock, choosenPoint);
             boardView.invalidate();
         }
     }
@@ -144,23 +146,35 @@ public class MainActivity extends Activity implements BoardTouchListener {
         public void onClick(View view) {
             blockIndex = view.getId();
             try {
-                Block block = player1.getBlock(view.getId());
-                boardView.setOverlayBlock(block, coord);
+                choosenBlock = player1.getBlock(view.getId());
+                boardView.setOverlayBlock(choosenBlock, choosenPoint);
                 boardView.invalidate();
                 // draw rotations
                 rotations_layout.removeAllViews();
-                ArrayList<Block> rotations = block.getRotations();
+                ArrayList<Block> rotations = choosenBlock.getRotations();
                 for(Block b:rotations){
                     BlockView bView = new BlockView(getApplicationContext());
                     bView.setBlock(b);
+                    bView.setOnClickListener(rotatedBlockClickListener);
                     rotations_layout.addView(bView);
                 }
                 rotations_layout.invalidate();
             }catch (NumberFormatException ex){
                 Toast.makeText(getApplicationContext(), "Set the coordinates too", Toast.LENGTH_SHORT).show();
             }
-            choosenBlock = (ImageView) view;
+            choosenBlockView = (ImageView) view;
             slidingUpLayout.collapsePanel();
+        }
+    }
+    public class RotatedBlockViewOnClickListener implements OnClickListener{
+
+        @Override
+        public void onClick(View view) {
+            Block block = ((BlockView)view).getBlock();
+            blockIndex = block.getId();
+            choosenBlock = block;
+            boardView.setOverlayBlock(choosenBlock, choosenPoint);
+            boardView.invalidate();
         }
     }
 }

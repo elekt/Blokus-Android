@@ -9,17 +9,16 @@ public class PlayerHuman extends Player {
     }
 
     @Override
-    public boolean placeBlock(int blockIndex, Point coord) {
+    public boolean placeBlock(Block block, Point coord) {
         if(Map.getInstance().getSteps()>=2)
             fillCorners();
 
-        Block block = getBlock(blockIndex);
         boolean isPlaceable = Map.getInstance().isPlaceable(block, corners, coord);
         if(!isPlaceable){
             return false;
         }
 
-        super.placeBlock(blockIndex, coord);
+        super.placeBlock(block, coord);
 
         return true;
     }

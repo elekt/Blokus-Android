@@ -18,7 +18,7 @@ public class PlayerAlgorithm extends Player {
         Random rand = new Random();
         int i=0;
         // TODO, minden cornershez tarolni, hogy mik illenek oda, hogy i is egy rand legyen
-        while(!placeBlock(i, corners.get(rand.nextInt(corners.size())))){
+        while(!placeBlock(getBlock(i), corners.get(rand.nextInt(corners.size())))){
             ++i;
         }
 
@@ -26,13 +26,12 @@ public class PlayerAlgorithm extends Player {
     }
 
     @Override
-    public boolean placeBlock(int blockIndex, Point coord) {
+    public boolean placeBlock(Block block, Point coord) {
         Map map = Map.getInstance();
-        Block block = getBlock(blockIndex);
         if(block==null)
              return false;
         if(map.isPlaceable(block, coord)){
-            super.placeBlock(blockIndex, coord);
+            super.placeBlock(block, coord);
         }
         return true;
     }

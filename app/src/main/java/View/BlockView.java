@@ -56,7 +56,7 @@ public class BlockView extends View{
     }
 
     public void setBlock(Block _block){ block = _block; }
-
+    public Block getBlock() { return block;  }
     // to make sure its always a square
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -65,4 +65,6 @@ public class BlockView extends View{
         int size = width > height ? height : width;
         setMeasuredDimension(200, 200);
     }
+
+
 }
