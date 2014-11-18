@@ -83,6 +83,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
                 boardView.setCorners(player1.getCorners());
                 boardView.setOverlayBlock(null, null);
                 boardView.invalidate();
+                rotations_layout.removeAllViews();
             }
         });
     }
