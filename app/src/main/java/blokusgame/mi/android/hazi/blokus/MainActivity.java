@@ -95,6 +95,9 @@ public class MainActivity extends Activity implements BoardTouchListener {
             if (player1.placeBlock(choosenBlock, choosenPoint)) {
                 boardView.setOverlayBlock(null, null);
                 horizontal_scroll.removeView(choosenBlockView);
+                choosenBlock = null;
+                choosenPoint = null;
+                choosenBlockView = null;
                 boardView.setCorners(player2.getCorners());
                 rotations_layout.removeAllViews();
                 // AI jatekos lepese
