@@ -60,10 +60,8 @@ public class BlockView extends View{
     // to make sure its always a square
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int width = MeasureSpec.getSize(widthMeasureSpec);
-        int height = MeasureSpec.getSize(heightMeasureSpec);
-        int size = width > height ? height : width;
-        setMeasuredDimension(200, 200);
+        int size = (int)getResources().getDimension(R.dimen.block_size);
+        setMeasuredDimension(size, size);
     }
 
 

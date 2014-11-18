@@ -3,4 +3,5 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="block_margin">10dp</dimen>
+    <dimen name="block_size">100dp</dimen>
 </resources>
