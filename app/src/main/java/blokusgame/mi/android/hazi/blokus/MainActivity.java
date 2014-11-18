@@ -127,16 +127,6 @@ public class MainActivity extends Activity implements BoardTouchListener {
         }
     }
 
-//    void setBlockRotations(Block block){
-//        ArrayList<Block> rotations = block.getRotations();
-//
-//        for(Block rotated : rotations){
-//            View.BlockView rotatedImage = new View.BlockView(this);
-//
-//            rotations_layout.addView(rotatedImage);
-//        }
-//    }
-
     @Override
     public void onBoardTouched(int x, int y) {
         coord = new Point(x,y);
