@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 
 /**
  * Created by elekt on 2014.10.21..
@@ -39,7 +40,7 @@ public class Block {
         id = _id;
     }
     public Block(ArrayList<Point> _points){
-        points = points;
+        points = _points;
     }
     public Block(Block b){
         points=b.points;
@@ -49,7 +50,7 @@ public class Block {
     public boolean equals(Object b){
         return this.points.equals(((Block)b).points);
     }
-    public void turn(int degrees){
+    public Block turn(int degrees){
         // ha jol emlekszem (1,0) volt, nem veletlen, atirtad?
         Point dVec = new Point(1,1);//inkabb 1,1 lenne a default, not sure
         boolean bSwitch = false;
@@ -70,7 +71,7 @@ public class Block {
                 break;
             default:
                 Log.e("WRONG TURN", "Wrong turning degree! Block::turn");
-                return;
+                return this;
         }
 
         for (int i=0; i<points.size(); ++i) {
@@ -80,11 +81,12 @@ public class Block {
             points.get(i).x *= dVec.x;
             points.get(i).y *= dVec.y;
         }
+        return this;
     }
     ///sides==0: no action
     ///sides==1: x tengely körül, sides==1: y tengely körül
     ///tengelyek a 0,0 pontnál találkoznak
-    public void mirror(int sides){
+    public Block mirror(int sides){
         Point dVec = new Point(1,1);
         switch(sides){
             case 0:
@@ -97,31 +99,40 @@ public class Block {
                 break;
             default:
                 Log.e("MIRROR INPUT","Wrong mirroring input! Block::mirror");
-                return;
+                return this;
         }
 
         for (int i=0; i<points.size(); ++i) {
             points.get(i).x *= dVec.x;
             points.get(i).y *= dVec.y;
         }
+        return this;
     }
 
 
     // TODO
     public ArrayList<Block> getRotations() {
-//        ArrayList<Block> rotatedBlocks = new ArrayList<Block>();
-//        Block thisBlock = new Block(this);
-//        rotatedBlocks.add(new Block(thisBlock.turn(90)));
-//        rotatedBlocks.add(new Block(thisBlock.turn(180)));
-//        rotatedBlocks.add(new Block(thisBlock.turn(270)));
-//        rotatedBlocks.add(new Block(thisBlock.turn(90)));
-//        rotatedBlocks.add(new Block(thisBlock.turn(90)));
-//        rotatedBlocks.add(new Block(thisBlock.turn(90)));
+        ArrayList<Block> rotatedBlocks = new ArrayList<Block>();
+        Block thisBlock = new Block(this);
+        rotatedBlocks.add(new Block(thisBlock.turn(90)));
+        rotatedBlocks.add(new Block(thisBlock.turn(180)));
+        rotatedBlocks.add(new Block(thisBlock.turn(270)));
+        rotatedBlocks.add(new Block(thisBlock.turn(90).mirror(1)));
+        rotatedBlocks.add(new Block(thisBlock.turn(180).mirror(1)));
+        rotatedBlocks.add(new Block(thisBlock.turn(270).mirror(1)));
+        rotatedBlocks.add(new Block(thisBlock.turn(90).mirror(2)));
+        rotatedBlocks.add(new Block(thisBlock.turn(180).mirror(2)));
+        rotatedBlocks.add(new Block(thisBlock.turn(270).mirror(2)));
+//        for(Block i: rotatedBlocks){
+//
+//        }
+        HashSet<Block> hs = new HashSet<Block>();
+        hs.addAll(rotatedBlocks);
+        rotatedBlocks.clear();
+        rotatedBlocks.addAll(hs);
 
 
-
-
-        return null;
+        return rotatedBlocks;
     }
 
 
