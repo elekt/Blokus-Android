@@ -22,9 +22,9 @@ public class Block {
     public int getId(){ return id; }
     public Point getDimensions(){
         int minX,minY;
-        minX = minY = 0;
+        minX = minY = 10;
         int maxX,maxY;
-        maxX = maxY = 10;
+        maxX = maxY = 0;
         for(Point i: points){
             minX = (i.x<minX)?i.x:minX;
             maxX = (i.x>maxX)?i.x:maxX;
@@ -39,16 +39,21 @@ public class Block {
         imageId = _imageId;
         id = _id;
     }
-    public Block(ArrayList<Point> _points){
-        points = _points;
-    }
+//    public Block(ArrayList<Point> _points){
+//        points = _points;
+//    }
     public Block(Block b){
-        points=b.points;
+        color = b.color;
+        points = b.points;
+        imageId = b.imageId;
+        id = b.id;
     }
 
     @Override
     public boolean equals(Object b){
-        return this.points.equals(((Block)b).points);
+        return points.containsAll(((Block)b).points) && ((Block)b).points.containsAll(points);
+//        return this.points.equals(((Block)b).points);
+
     }
     public Block turn(int degrees){
         // ha jol emlekszem (1,0) volt, nem veletlen, atirtad?
