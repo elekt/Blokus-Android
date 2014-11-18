@@ -26,7 +26,7 @@ public class BlockView extends View{
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         cellSize = (getWidth()-2*getResources().getDimension(R.dimen.block_margin)) / 5.0f;
-        center = getWidth()/2;
+        center = getWidth()/2.0f;
 
         drawBackGround(canvas);
         drawBlock(canvas);
@@ -39,8 +39,8 @@ public class BlockView extends View{
         paintCell.setStyle(Paint.Style.FILL);
 
         for(int i=0; i<block.getSize(); ++i){
-            float startX = center - block.getPoint(i).x*(dimensions.x/2.0f*cellSize);
-            float startY = center - block.getPoint(i).y*(dimensions.y/2.0f * cellSize);
+            float startX = center - block.getPoint(i).x*cellSize + (dimensions.x/2.0f*cellSize);
+            float startY = center - block.getPoint(i).y*cellSize + (dimensions.y/2.0f * cellSize);
             canvas.drawRect(startX, startY, startX+cellSize, startY + cellSize, paintCell);
         }
     }

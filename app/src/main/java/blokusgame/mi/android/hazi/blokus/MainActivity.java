@@ -56,15 +56,6 @@ public class MainActivity extends Activity implements BoardTouchListener {
 
         horizontal_scroll = (LinearLayout) findViewById(R.id.horizontal_layout);
         rotations_layout = (LinearLayout) findViewById(R.id.rotations_layout);
-        Block block;
-        for(int i=0; i<5; ++i){
-            block = player1.getBlock(i);
-            BlockView blockView = new BlockView(this);
-            blockView.setBlock(block);
-            rotations_layout.addView(blockView);
-        }
-        rotations_layout.invalidate();
-
 
         slidingUpLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         slidingUpLayout.setCoveredFadeColor(Color.TRANSPARENT);
@@ -102,6 +93,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
                 boardView.setOverlayBlock(null, null);
                 horizontal_scroll.removeView(choosenBlock);
                 boardView.setCorners(player2.getCorners());
+                rotations_layout.removeAllViews();
                 // AI jatekos lepese
                 player2.nextStep();
                 boardView.setCorners(player1.getCorners());
@@ -161,8 +153,18 @@ public class MainActivity extends Activity implements BoardTouchListener {
         public void onClick(View view) {
             blockIndex = view.getId();
             try {
-                boardView.setOverlayBlock(player1.getBlock(view.getId()), coord);
+                Block block = player1.getBlock(view.getId());
+                boardView.setOverlayBlock(block, coord);
                 boardView.invalidate();
+                // draw rotations
+                rotations_layout.removeAllViews();
+                ArrayList<Block> rotations = block.getRotations();
+                for(Block b:rotations){
+                    BlockView bView = new BlockView(getApplicationContext());
+                    bView.setBlock(b);
+                    rotations_layout.addView(bView);
+                }
+                rotations_layout.invalidate();
             }catch (NumberFormatException ex){
                 Toast.makeText(getApplicationContext(), "Set the coordinates too", Toast.LENGTH_SHORT).show();
             }
