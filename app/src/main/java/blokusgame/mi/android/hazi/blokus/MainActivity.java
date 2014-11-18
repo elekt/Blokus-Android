@@ -17,7 +17,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import java.util.ArrayList;
 
 import View.BoardTouchListener;
-import View.BoardView;
+import View.*;
 import blokusgame.mi.android.hazi.blokus.GameLogic.Block;
 import blokusgame.mi.android.hazi.blokus.GameLogic.Map;
 import blokusgame.mi.android.hazi.blokus.GameLogic.Player;
@@ -56,6 +56,15 @@ public class MainActivity extends Activity implements BoardTouchListener {
 
         horizontal_scroll = (LinearLayout) findViewById(R.id.horizontal_layout);
         rotations_layout = (LinearLayout) findViewById(R.id.rotations_layout);
+        Block block;
+        for(int i=0; i<5; ++i){
+            block = player1.getBlock(i);
+            BlockView blockView = new BlockView(this);
+            blockView.setBlock(block);
+            rotations_layout.addView(blockView);
+        }
+
+
         slidingUpLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         slidingUpLayout.setCoveredFadeColor(Color.TRANSPARENT);
 

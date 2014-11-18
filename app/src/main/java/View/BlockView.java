@@ -4,11 +4,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.AttributeSet;
 import android.view.View;
 
 import blokusgame.mi.android.hazi.blokus.GameLogic.Block;
-import blokusgame.mi.android.hazi.blokus.GameLogic.PlayerConstants;
 import blokusgame.mi.android.hazi.blokus.GameLogic.Point;
 import blokusgame.mi.android.hazi.blokus.R;
 
@@ -20,8 +18,8 @@ public class BlockView extends View{
     private float cellSize = (getWidth()-2*getResources().getDimension(R.dimen.block_margin)) / 5.0f;
     private float center = getWidth()/2;
 
-    public BlockView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
+    public BlockView(Context context) {
+        super(context);
     }
 
     @Override
@@ -49,25 +47,10 @@ public class BlockView extends View{
         paintBg.setStyle(Paint.Style.FILL);
 
         canvas.drawRect(0, 0, getWidth(), getHeight(), paintBg);
-
     }
 
-    void setBlock(Block _block){ block = _block; }
+    public void setBlock(Block _block){ block = _block; }
 
-    private int getColor(int cell) {
-        switch (cell){
-            case 1:
-                return PlayerConstants.PLAYER_ONE;
-            case 2:
-                return PlayerConstants.PLAYER_TWO;
-            case 3:
-                return PlayerConstants.PLAYER_THREE;
-            case 4:
-                return PlayerConstants.PLAYER_FOUR;
-            default:
-                return Color.CYAN;
-        }
-    }
     // to make sure its always a square
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
