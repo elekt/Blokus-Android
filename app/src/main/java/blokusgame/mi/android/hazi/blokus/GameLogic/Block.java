@@ -54,7 +54,7 @@ public class Block {
     }
 
     @Override
-    public boolean equals(Object b){
+    public boolean equals(Object b){//TODO check
         return points.containsAll(((Block)b).points) && ((Block)b).points.containsAll(points);
 //        return this.points.equals(((Block)b).points);
 
@@ -136,16 +136,20 @@ public class Block {
         rotatedBlocks.add(new Block(thisBlock.turn(90).mirror(2)));
         rotatedBlocks.add(new Block(thisBlock.turn(180).mirror(2)));
         rotatedBlocks.add(new Block(thisBlock.turn(270).mirror(2)));
-//        for(Block i: rotatedBlocks){
-//
-//        }
+        ArrayList<Block> rotatedBlocksSlim = new ArrayList<Block>();
+        for(Block i: rotatedBlocks){
+            if(!rotatedBlocksSlim.contains(i)){
+                rotatedBlocksSlim.add(i);
+            }
+        }
+
 //        HashSet<Block> hs = new HashSet<Block>();
 //        hs.addAll(rotatedBlocks);
 //        rotatedBlocks.clear();
 //        rotatedBlocks.addAll(hs);
 
 
-        return rotatedBlocks;
+        return rotatedBlocksSlim;
     }
 
 
