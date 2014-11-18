@@ -162,11 +162,16 @@ public class BlockFactory {
     }
     private static Block create5X(int color){
         ArrayList<Point> points = new ArrayList<Point>();
+//        points.add(new Point(0, 0));
+//        points.add(new Point(0, 1));
+//        points.add(new Point(0, 2));
+//        points.add(new Point(-1, 1));
+//        points.add(new Point(1, 1));
         points.add(new Point(0, 0));
         points.add(new Point(0, 1));
-        points.add(new Point(0, 2));
-        points.add(new Point(-1, 1));
-        points.add(new Point(1, 1));
+        points.add(new Point(0, -1));
+        points.add(new Point(1, 0));
+        points.add(new Point(-1, 0));
         int imageId = R.drawable.x_5;
         return new Block(points, color, imageId, 14);
     }

@@ -20,7 +20,7 @@ public class Block {
     public int getColor() {return color;}
     public int getImageId(){ return imageId; }
     public int getId(){ return id; }
-    public Point getDimensions(){
+    public Point getDimensions(){//todo check
         int minX,minY;
         minX = minY = 10;
         int maxX,maxY;
@@ -48,17 +48,39 @@ public class Block {
         for(Point i: b.points){
             points.add(new Point(i));
         }
-//        points = new ArrayList<Point>(b.points);
         imageId = b.imageId;
         id = b.id;
     }
 
     @Override
-    public boolean equals(Object b){//TODO check
-        return points.containsAll(((Block)b).points) && ((Block)b).points.containsAll(points);
-//        return this.points.equals(((Block)b).points);
+    public boolean equals(Object b){//todo
+        //find left and upmost point in block
+        //move it to 0,0
+        //for both this and b
+        ArrayList<Point> newBlock0 = new ArrayList<Point>();
+        ArrayList<Point> newBlock1 = new ArrayList<Point>();
+        int minX,minY;
+        minX = minY = 10;
+        for(Point i: points){
+            minX = (i.x<minX)?i.x:minX;
+            minY = (i.y<minY)?i.y:minY;
+        }
+        for(Point i: points){
+            newBlock0.add(new Point(i.x-minX,i.y-minY));
+        }
 
+        minX = minY = 10;
+        for(Point i: ((Block)b).points){//todo dehát privát
+            minX = (i.x<minX)?i.x:minX;
+            minY = (i.y<minY)?i.y:minY;
+        }
+        for(Point i: ((Block)b).points){
+            newBlock1.add(new Point(i.x-minX,i.y-minY));
+        }
+
+        return newBlock0.containsAll(newBlock1) && newBlock1.containsAll(newBlock0);
     }
+
     public Block turn(int degrees){
         Block ret = new Block(this);
         // ha jol emlekszem (1,0) volt, nem veletlen, atirtad?
