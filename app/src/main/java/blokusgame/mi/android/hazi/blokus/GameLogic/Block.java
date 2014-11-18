@@ -3,18 +3,52 @@ package blokusgame.mi.android.hazi.blokus.GameLogic;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by elekt on 2014.10.21..
  */
 public class Block {
+    private ArrayList<Point> points = new ArrayList<Point>();
+    private int color;
+    private int imageId;
+    private int id;
+
+    public Point getPoint(int idx){ return points.get(idx); }
+    public int getSize(){ return points.size(); }
+    public int getColor() {return color;}
+    public int getImageId(){ return imageId; }
+    public int getId(){ return id; }
+    public Point getDimensions(){
+        int minX,minY;
+        minX = minY = 0;
+        int maxX,maxY;
+        maxX = maxY = 10;
+        for(Point i: points){
+            minX = (i.x<minX)?i.x:minX;
+            maxX = (i.x>maxX)?i.x:maxX;
+            minY = (i.y<minY)?i.y:minY;
+            maxY = (i.y>maxY)?i.y:maxY;
+        }
+        return new Point(maxX-minX+1,maxY-minY+1);
+    }
     public Block(ArrayList<Point> _points, int _color, int _imageId, int _id){
         color = _color;
         points = _points;
         imageId = _imageId;
         id = _id;
     }
+    public Block(ArrayList<Point> _points){
+        points = points;
+    }
+    public Block(Block b){
+        points=b.points;
+    }
 
+    @Override
+    public boolean equals(Object b){
+        return this.points.equals(((Block)b).points);
+    }
     public void turn(int degrees){
         // ha jol emlekszem (1,0) volt, nem veletlen, atirtad?
         Point dVec = new Point(1,1);//inkabb 1,1 lenne a default, not sure
@@ -72,18 +106,23 @@ public class Block {
         }
     }
 
-    public Point getPoint(int idx){ return points.get(idx); }
-    public int getSize(){ return points.size(); }
-    public int getColor() {return color;}
-    public int getImageId(){ return imageId; }
-    public int getId(){ return id; }
+
     // TODO
     public ArrayList<Block> getRotations() {
+//        ArrayList<Block> rotatedBlocks = new ArrayList<Block>();
+//        Block thisBlock = new Block(this);
+//        rotatedBlocks.add(new Block(thisBlock.turn(90)));
+//        rotatedBlocks.add(new Block(thisBlock.turn(180)));
+//        rotatedBlocks.add(new Block(thisBlock.turn(270)));
+//        rotatedBlocks.add(new Block(thisBlock.turn(90)));
+//        rotatedBlocks.add(new Block(thisBlock.turn(90)));
+//        rotatedBlocks.add(new Block(thisBlock.turn(90)));
+
+
+
+
         return null;
     }
 
-    private ArrayList<Point> points = new ArrayList<Point>();
-    private int color;
-    private int imageId;
-    private int id;
+
 }
