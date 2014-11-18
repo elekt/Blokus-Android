@@ -44,7 +44,11 @@ public class Block {
 //    }
     public Block(Block b){
         color = b.color;
-        points = b.points;
+        points = new ArrayList<Point>();
+        for(Point i: b.points){
+            points.add(new Point(i));
+        }
+//        points = new ArrayList<Point>(b.points);
         imageId = b.imageId;
         id = b.id;
     }
@@ -56,6 +60,7 @@ public class Block {
 
     }
     public Block turn(int degrees){
+        Block ret = new Block(this);
         // ha jol emlekszem (1,0) volt, nem veletlen, atirtad?
         Point dVec = new Point(1,1);//inkabb 1,1 lenne a default, not sure
         boolean bSwitch = false;
@@ -79,19 +84,20 @@ public class Block {
                 return this;
         }
 
-        for (int i=0; i<points.size(); ++i) {
+        for (int i=0; i<ret.points.size(); ++i) {
             if(bSwitch){
-                points.get(i).change();
+                ret.points.get(i).change();
             }
-            points.get(i).x *= dVec.x;
-            points.get(i).y *= dVec.y;
+            ret.points.get(i).x *= dVec.x;
+            ret.points.get(i).y *= dVec.y;
         }
-        return this;
+        return ret;
     }
     ///sides==0: no action
     ///sides==1: x tengely körül, sides==1: y tengely körül
     ///tengelyek a 0,0 pontnál találkoznak
     public Block mirror(int sides){
+        Block ret = new Block(this);
         Point dVec = new Point(1,1);
         switch(sides){
             case 0:
@@ -107,11 +113,11 @@ public class Block {
                 return this;
         }
 
-        for (int i=0; i<points.size(); ++i) {
-            points.get(i).x *= dVec.x;
-            points.get(i).y *= dVec.y;
+        for (int i=0; i<ret.points.size(); ++i) {
+            ret.points.get(i).x *= dVec.x;
+            ret.points.get(i).y *= dVec.y;
         }
-        return this;
+        return ret;
     }
 
 
@@ -122,6 +128,8 @@ public class Block {
         rotatedBlocks.add(new Block(thisBlock.turn(90)));
         rotatedBlocks.add(new Block(thisBlock.turn(180)));
         rotatedBlocks.add(new Block(thisBlock.turn(270)));
+        rotatedBlocks.add(new Block(thisBlock.mirror(1)));
+        rotatedBlocks.add(new Block(thisBlock.mirror(2)));
         rotatedBlocks.add(new Block(thisBlock.turn(90).mirror(1)));
         rotatedBlocks.add(new Block(thisBlock.turn(180).mirror(1)));
         rotatedBlocks.add(new Block(thisBlock.turn(270).mirror(1)));
@@ -131,10 +139,10 @@ public class Block {
 //        for(Block i: rotatedBlocks){
 //
 //        }
-        HashSet<Block> hs = new HashSet<Block>();
-        hs.addAll(rotatedBlocks);
-        rotatedBlocks.clear();
-        rotatedBlocks.addAll(hs);
+//        HashSet<Block> hs = new HashSet<Block>();
+//        hs.addAll(rotatedBlocks);
+//        rotatedBlocks.clear();
+//        rotatedBlocks.addAll(hs);
 
 
         return rotatedBlocks;
