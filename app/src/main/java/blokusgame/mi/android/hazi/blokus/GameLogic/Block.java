@@ -97,7 +97,7 @@ public class Block {
 //        return newBlock0.containsAll(newBlock1) && newBlock1.containsAll(newBlock0);
         Block block0 = this.normalize();
         Block block1 = ((Block)b).normalize();
-        return block0.getPoints().contains(block1.getPoints()) && block1.getPoints().contains(block0.getPoints());
+        return block0.getPoints().containsAll(block1.getPoints()) && block1.getPoints().containsAll(block0.getPoints());
     }
 
     public Block turn(int degrees){
