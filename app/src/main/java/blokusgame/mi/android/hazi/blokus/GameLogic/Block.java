@@ -66,7 +66,7 @@ public class Block {
         Point min = getMin();
         Point validMin = min;
         while(!points.contains(validMin)){
-            validMin.x--;
+            validMin.x++;
         }
         //for every point in block, do substract the value of validMin from each point
         for(Point i: points){
