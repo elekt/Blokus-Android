@@ -38,12 +38,23 @@ public class BlockView extends View{
         paintCell.setColor(Color.GREEN);
         paintCell.setStyle(Paint.Style.FILL);
 
+        Point min = block.getMin();
+        Point max = block.getMax();
+        float offsetX = (min.x - dimensions.x/2.0f)<(max.x - dimensions.x/2.0f)?
+                (min.x - dimensions.x/2.0f) : (max.x - dimensions.x/2.0f);
+        float offsetY = (min.y - dimensions.y/2.0f)<(max.y - dimensions.y/2.0f)?
+                (min.y - dimensions.y/2.0f) : (max.y - dimensions.y/2.0f);
         for(int i=0; i<block.getSize(); ++i){//todo
-            float startX = center + block.getPoint(i).x*cellSize - ((dimensions.x/2.0f-block.getPoint(i).x)*cellSize);
-            float startY = center + block.getPoint(i).y*cellSize - ((dimensions.y/2.0f-block.getPoint(i).y)*cellSize);
+            float startX = center + block.getPoint(i).x*cellSize + offsetX;
+            float startY = center + block.getPoint(i).y*cellSize + offsetY;
             canvas.drawRect(startX-cellSize/2, startY-cellSize/2,
                             startX+cellSize/2, startY+cellSize/2, paintCell);
         }
+//        for(int i=0; i<block.getSize(); ++i) {//todo
+//            float startX = center - (block.getPoint(i).x * cellSize + (dimensions.x / 2.0f * cellSize));
+//            float startY = center - (block.getPoint(i).y * cellSize + (dimensions.y / 2.0f * cellSize));
+//            canvas.drawRect(startX, startY, startX + cellSize, startY + cellSize, paintCell);
+//        }
     }
 
     private void drawBackGround(Canvas canvas) {

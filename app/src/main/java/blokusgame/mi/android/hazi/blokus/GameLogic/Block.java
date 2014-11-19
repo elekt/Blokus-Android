@@ -10,28 +10,41 @@ import java.util.HashSet;
  * Created by elekt on 2014.10.21..
  */
 public class Block {
+
+
     private ArrayList<Point> points = new ArrayList<Point>();
     private int color;
     private int imageId;
     private int id;
 
     public Point getPoint(int idx){ return points.get(idx); }
+    public ArrayList<Point> getPoints() { return points; }
     public int getSize(){ return points.size(); }
     public int getColor() {return color;}
     public int getImageId(){ return imageId; }
     public int getId(){ return id; }
-    public Point getDimensions(){//todo check
+    public Point getMin(){
         int minX,minY;
         minX = minY = 10;
+        for(Point i: points){
+            minX = (i.x<minX)?i.x:minX;
+            minY = (i.y<minY)?i.y:minY;
+        }
+        return new Point(minX, minY);
+    }
+    public Point getMax(){
         int maxX,maxY;
         maxX = maxY = 0;
         for(Point i: points){
-            minX = (i.x<minX)?i.x:minX;
             maxX = (i.x>maxX)?i.x:maxX;
-            minY = (i.y<minY)?i.y:minY;
             maxY = (i.y>maxY)?i.y:maxY;
         }
-        return new Point(maxX-minX+1,maxY-minY+1);
+        return new Point(maxX, maxY);
+    }
+    public Point getDimensions(){//todo check
+        Point min = getMin();
+        Point max = getMax();
+        return new Point(max.x-min.x+1,max.y-min.y+1);
     }
     public Block(ArrayList<Point> _points, int _color, int _imageId, int _id){
         color = _color;
@@ -39,9 +52,6 @@ public class Block {
         imageId = _imageId;
         id = _id;
     }
-//    public Block(ArrayList<Point> _points){
-//        points = _points;
-//    }
     public Block(Block b){
         color = b.color;
         points = new ArrayList<Point>();
@@ -51,34 +61,43 @@ public class Block {
         imageId = b.imageId;
         id = b.id;
     }
+    public Block normalize(){
+        ArrayList<Point> newBlock0 = new ArrayList<Point>();
+        Point min = getMin();
+        Point validMin = min;
+        while(!points.contains(validMin)){
+            validMin.x--;
+        }
+        //for every point in block, do substract the value of validMin from each point
+        for(Point i: points){
+            newBlock0.add(new Point(i.x-validMin.x,i.y-validMin.y));
+        }
+        Block ret = new Block(this);
+        ret.points = newBlock0;//this is bad; its private
+        return ret;
 
+
+    }
     @Override
     public boolean equals(Object b){//todo
-        //find left and upmost point in block
-        //move it to 0,0
-        //for both this and b
-        ArrayList<Point> newBlock0 = new ArrayList<Point>();
-        ArrayList<Point> newBlock1 = new ArrayList<Point>();
-        int minX,minY;
-        minX = minY = 10;
-        for(Point i: points){
-            minX = (i.x<minX)?i.x:minX;
-            minY = (i.y<minY)?i.y:minY;
-        }
-        for(Point i: points){
-            newBlock0.add(new Point(i.x-minX,i.y-minY));
-        }
-
-        minX = minY = 10;
-        for(Point i: ((Block)b).points){//todo dehát privát
-            minX = (i.x<minX)?i.x:minX;
-            minY = (i.y<minY)?i.y:minY;
-        }
-        for(Point i: ((Block)b).points){
-            newBlock1.add(new Point(i.x-minX,i.y-minY));
-        }
-
-        return newBlock0.containsAll(newBlock1) && newBlock1.containsAll(newBlock0);
+//        //find left and upmost point in block
+//        //move it to 0,0
+//        //for both this and b
+//        ArrayList<Point> newBlock0 = new ArrayList<Point>();
+//        ArrayList<Point> newBlock1 = new ArrayList<Point>();
+//        Point min = getMin();
+//        for(Point i: points){
+//            newBlock0.add(new Point(i.x-min.x,i.y-min.y));
+//        }
+//        min = ((Block)b).getMin();
+//        for(Point i: ((Block)b).points){
+//            newBlock1.add(new Point(i.x-min.x,i.y-min.y));
+//        }
+//
+//        return newBlock0.containsAll(newBlock1) && newBlock1.containsAll(newBlock0);
+        Block block0 = this.normalize();
+        Block block1 = ((Block)b).normalize();
+        return block0.getPoints().contains(block1.getPoints()) && block1.getPoints().contains(block0.getPoints());
     }
 
     public Block turn(int degrees){
@@ -147,6 +166,7 @@ public class Block {
     public ArrayList<Block> getRotations() {
         ArrayList<Block> rotatedBlocks = new ArrayList<Block>();
         Block thisBlock = new Block(this);
+        rotatedBlocks.add(new Block(thisBlock));
         rotatedBlocks.add(new Block(thisBlock.turn(90)));
         rotatedBlocks.add(new Block(thisBlock.turn(180)));
         rotatedBlocks.add(new Block(thisBlock.turn(270)));
@@ -164,12 +184,6 @@ public class Block {
                 rotatedBlocksSlim.add(i);
             }
         }
-
-//        HashSet<Block> hs = new HashSet<Block>();
-//        hs.addAll(rotatedBlocks);
-//        rotatedBlocks.clear();
-//        rotatedBlocks.addAll(hs);
-
 
         return rotatedBlocksSlim;
     }
