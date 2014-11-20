@@ -87,14 +87,31 @@ public class PlayerAlgorithm extends Player {
         if(Map.getInstance().getSteps()>=2)
             fillCorners();
 
+        fillValues();
         ArrayList<Move> possibleMoves = getAllPossibleMoves();
-
-        Random rand = new Random();
-        Move move = possibleMoves.get(rand.nextInt(possibleMoves.size()));
-        placeBlock(move.block, move.pt);
+        Move bestMove = getBestMove(possibleMoves);
+        placeBlock(bestMove.block, bestMove.pt);
 
         fillCorners();
         enemy.fillCorners();
+    }
+
+    private Move getBestMove(ArrayList<Move> moves) {
+        int max = -1;
+        ArrayList<Move> bestMoves = new ArrayList<Move>();
+        for(Move move:moves){
+            if(move.value > max){
+                bestMoves.clear();
+                max = move.value;
+            }
+            if(move.value == max){
+                bestMoves.add(move);
+            }
+        }
+
+        Random rand = new Random();
+        Move bestMove = bestMoves.get(rand.nextInt(bestMoves.size()));
+        return bestMove;
     }
 
     @Override

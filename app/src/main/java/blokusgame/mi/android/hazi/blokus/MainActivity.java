@@ -83,6 +83,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
                 player1 = new PlayerHuman(1);
                 setPlayer(player1);
                 player2 = new PlayerAlgorithm(2);
+                player2.setEnemy(player1);
                 boardView.setCorners(player1.getCorners());
                 boardView.setOverlayBlock(null, null);
                 boardView.invalidate();
