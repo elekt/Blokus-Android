@@ -134,7 +134,7 @@ public class BoardView extends View {
     private void drawOverlayBlock(Canvas canvas) {
         Map map = Map.getInstance();
 
-        int drawColor = (map.isPlaceable(overlayBlock, corners, overlayPos))? Color.GREEN:Color.RED;
+        int drawColor = (map.isPlaceable(overlayBlock, overlayPos, corners))? Color.GREEN:Color.RED;
         paintOverlay.setColor(drawColor);
 
         for(int i = 0; i<overlayBlock.getSize(); ++i){

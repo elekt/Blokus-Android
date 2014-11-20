@@ -42,9 +42,15 @@ public class Map {
         return cells.get(idx);
     }
     public int getCell(int x, int y){
+        if(x<0 || x>=getLineSize() || y<0 || y>=getLineSize()){
+            return -1;
+        }
         return getCell(x*lineSize + y);
     }
     public int getCell(Point pt){
+        if(pt.x<0 || pt.x>=getLineSize() || pt.y<0 || pt.y>=getLineSize()){
+            return -1;
+        }
         return getCell(pt.x*lineSize + pt.y);
     }
     public int getSteps(){ return steps; }
