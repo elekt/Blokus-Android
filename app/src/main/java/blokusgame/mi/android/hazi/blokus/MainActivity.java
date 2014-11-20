@@ -63,6 +63,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
         slidingUpLayout.setCoveredFadeColor(Color.TRANSPARENT);
 
         setPlayer(player1);
+        player2.setEnemy(player1);
 
         Button btnStep = (Button) findViewById(R.id.btnStep);
         btnStep.setOnClickListener(new OnClickListener() {
