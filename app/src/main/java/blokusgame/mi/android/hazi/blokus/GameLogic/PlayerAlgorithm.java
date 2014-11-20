@@ -75,8 +75,23 @@ public class PlayerAlgorithm extends Player {
             for(int j=0; j<map.getLineSize(); ++j){
                 if(map.getCell(i,j)!=0){
                     values[i][j] = -100;
-                } else if(enemyCorners.contains(new Point(i,j))){
-                    values[i][j] += 10;
+                } else {
+                    if (enemyCorners.contains(new Point(i, j))) {
+                        values[i][j] += 10;
+                    }
+                    // check if sides "touch"
+                    if(map.getCell(i+1,j)==enemy.getColor()){
+                        values[i][j] += 5;
+                    }
+                    if(map.getCell(i-1,j)==enemy.getColor()){
+                        values[i][j] += 5;
+                    }
+                    if(map.getCell(i,j+1)==enemy.getColor()){
+                        values[i][j] += 5;
+                    }
+                    if(map.getCell(i,j-1)==enemy.getColor()){
+                        values[i][j] += 5;
+                    }
                 }
             }
         }
@@ -86,6 +101,15 @@ public class PlayerAlgorithm extends Player {
     public void nextStep(){
         if(Map.getInstance().getSteps()>=2)
             fillCorners();
+
+//        if(map.getSteps()<=10){
+//            ArrayList<Move> possibleMoves = getNLongMoves(5);
+//
+//        } else if(map.getSteps()<20){
+//
+//        } else if(map.getSteps()<30){
+//
+//        }
 
         fillValues();
         ArrayList<Move> possibleMoves = getAllPossibleMoves();
