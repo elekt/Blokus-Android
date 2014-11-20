@@ -8,15 +8,21 @@ import java.util.Random;
  * Created by elekt on 2014.10.29..
  */
 public class PlayerAlgorithm extends Player {
-    private ArrayList<Integer> values;
     private Map map = Map.getInstance();
+    private int[][] values;
+    private Player enemy;
 
     public PlayerAlgorithm(int _color) {
         super(_color);
+        values = new int[(int)map.getLineSize()][(int)map.getLineSize()];
+        for(int i=0; i<map.getLineSize(); ++i){
+            for (int j=0; j<map.getLineSize(); ++j){
+                values[i][j] = 1;
+            }
+        }
     }
 
 
-    // NAGYON LASSU
     private ArrayList<Move> getAllPossibleMoves(){
         ArrayList<Move> moves = new ArrayList<Move>();
 
@@ -39,7 +45,8 @@ public class PlayerAlgorithm extends Player {
                             Point pt = new Point(corner.x - block.getPoint(i).x, corner.y - block.getPoint(i).y);
                             if (map.isPlaceable(rBlock, pt, corners)) {
                                 Block newBlock = new Block(rBlock);
-                                Move move = new Move(newBlock, pt, 0);
+                                int value = getValue(newBlock, pt);
+                                Move move = new Move(newBlock, pt, value);
                                 moves.add(move);
                             }
                         }
@@ -51,13 +58,26 @@ public class PlayerAlgorithm extends Player {
         return moves;
     }
 
+    private int getValue(Block block, Point pt) {
+        int value = 0;
+
+        for(int i=0; i<block.getSize(); ++i){
+            Point bPoint = block.getPoint(i);
+            value += values[pt.x+bPoint.x][pt.y+bPoint.y];
+        }
+
+        return value;
+    }
+
     private void fillValues(){
-        Map map = Map.getInstance();
-        for(int i=0; i<map.getLineSize()*map.getLineSize(); ++i){
-            if(map.getCell(i)!=0){
-                values.set(i, -100);
-            } else {
-                values.set(i, 1);
+        ArrayList<Point> enemyCorners = enemy.getCorners();
+        for(int i=0; i<map.getLineSize(); ++i){
+            for(int j=0; j<map.getLineSize(); ++j){
+                if(map.getCell(i,j)!=0){
+                    values[i][j] = -100;
+                } else if(enemyCorners.contains(new Point(i,j))){
+                    values[i][j] += 10;
+                }
             }
         }
     }
@@ -74,6 +94,7 @@ public class PlayerAlgorithm extends Player {
         placeBlock(move.block, move.pt);
 
         fillCorners();
+        enemy.fillCorners();
     }
 
     @Override
@@ -97,5 +118,9 @@ public class PlayerAlgorithm extends Player {
             block = _block;
             value = _value;
         }
+    }
+
+    public void setEnemy(Player _enemy){
+        enemy = _enemy;
     }
 }
