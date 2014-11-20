@@ -33,7 +33,7 @@ public class BlockView extends View{
     }
 
     private void drawBlock(Canvas canvas) {
-        Point dimensions = block.getDimensions();
+        Point dim = block.getDimensions();
         Paint paintCell = new Paint();
         paintCell.setColor(Color.GREEN);
         paintCell.setStyle(Paint.Style.FILL);
@@ -50,9 +50,11 @@ public class BlockView extends View{
 //            canvas.drawRect(startX-cellSize/2, startY-cellSize/2,
 //                            startX+cellSize/2, startY+cellSize/2, paintCell);
 //        }
+
         for(int i=0; i<block.getSize(); ++i) {//todo
-            float startX = center - (block.getPoint(i).x * cellSize + (dimensions.x / 2.0f * cellSize));
-            float startY = center - (block.getPoint(i).y * cellSize + (dimensions.y / 2.0f * cellSize));
+            Point pt = block.getPoint(i);
+            float startX = center - (pt.x* cellSize - (dim.x*cellSize)/2.0f);
+            float startY = center - (pt.y* cellSize - (dim.y*cellSize)/2.0f);
             canvas.drawRect(startX, startY, startX + cellSize, startY + cellSize, paintCell);
         }
     }
