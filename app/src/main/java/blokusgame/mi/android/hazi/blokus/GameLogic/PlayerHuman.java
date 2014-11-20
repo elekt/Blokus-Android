@@ -13,7 +13,7 @@ public class PlayerHuman extends Player {
         if(Map.getInstance().getSteps()>=2)
             fillCorners();
 
-        boolean isPlaceable = Map.getInstance().isPlaceable(block, corners, coord);
+        boolean isPlaceable = Map.getInstance().isPlaceable(block, coord, corners);
         if(!isPlaceable){
             return false;
         }

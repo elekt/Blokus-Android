@@ -15,19 +15,33 @@ public class PlayerAlgorithm extends Player {
         super(_color);
     }
 
+
+    // NAGYON LASSU
     private ArrayList<Move> getAllPossibleMoves(){
+        ArrayList<Move> moves = new ArrayList<Move>();
+
+        for(int i=1; i<=5; ++i){
+            moves.addAll(getNLongMoves(i));
+        }
+
+        return moves;
+    }
+
+    private ArrayList<Move> getNLongMoves(int n){
         ArrayList<Move> moves = new ArrayList<Move>();
 
         for (Point corner : corners) {
             for (Block block : blocks) {
-                ArrayList<Block> rotations = block.getRotations();
-                for(Block rBlock:rotations){
-                    for(int i=0; i<rBlock.getSize(); ++i){
-                        Point pt = new Point(corner.x-block.getPoint(i).x, corner.y-block.getPoint(i).y);
-                        if(map.isPlaceable(rBlock, pt)){
-                            Block newBlock = new Block(rBlock);
-                            Move move = new Move(newBlock, pt, 0);
-                            moves.add(move);
+                if(block.getSize()==n) {
+                    ArrayList<Block> rotations = block.getRotations();
+                    for (Block rBlock : rotations) {
+                        for (int i = 0; i < rBlock.getSize(); ++i) {
+                            Point pt = new Point(corner.x - block.getPoint(i).x, corner.y - block.getPoint(i).y);
+                            if (map.isPlaceable(rBlock, pt, corners)) {
+                                Block newBlock = new Block(rBlock);
+                                Move move = new Move(newBlock, pt, 0);
+                                moves.add(move);
+                            }
                         }
                     }
                 }
@@ -56,11 +70,8 @@ public class PlayerAlgorithm extends Player {
         ArrayList<Move> possibleMoves = getAllPossibleMoves();
 
         Random rand = new Random();
-        int i=0;
-        // TODO, minden cornershez tarolni, hogy mik illenek oda, hogy i is egy rand legyen
-        while(!placeBlock(getBlock(i), corners.get(rand.nextInt(corners.size())))){
-            ++i;
-        }
+        Move move = possibleMoves.get(rand.nextInt(possibleMoves.size()));
+        placeBlock(move.block, move.pt);
 
         fillCorners();
     }

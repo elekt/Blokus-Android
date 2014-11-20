@@ -91,7 +91,7 @@ public class Map {
 
 
 
-    public boolean isPlaceable(Block block, ArrayList<Point> corners, Point pt){
+    public boolean isPlaceable(Block block, Point pt, ArrayList<Point> corners){
         if(!isPlaceable(block, pt))
             return false;
         for(int i = 0; i<block.getSize(); ++i){//minden elem a blockban
