@@ -98,23 +98,27 @@ public class PlayerAlgorithm extends Player {
     }
 
     // a mainbol ezt kell hivni, nem a placeblockot. sry
-    public void nextStep(){
-        if(Map.getInstance().getSteps()>=2)
+    public void nextStep() {
+        if (Map.getInstance().getSteps() >= 2)
             fillCorners();
 
-//        if(map.getSteps()<=10){
-//            ArrayList<Move> possibleMoves = getNLongMoves(5);
-//
-//        } else if(map.getSteps()<20){
-//
-//        } else if(map.getSteps()<30){
-//
-//        }
-
         fillValues();
-        ArrayList<Move> possibleMoves = getAllPossibleMoves();
-        Move bestMove = getBestMove(possibleMoves);
-        placeBlock(bestMove.block, bestMove.pt);
+
+        if (map.getSteps() <= 10) {
+            ArrayList<Move> possibleMoves = getNLongMoves(5);
+            if(possibleMoves.isEmpty()){
+                possibleMoves = getAllPossibleMoves();
+            }
+
+            Move bestMove = getBestMove(possibleMoves);
+            placeBlock(bestMove.block, bestMove.pt);
+        } else{
+            ArrayList<Move> possibleMoves = getAllPossibleMoves();
+            Move bestMove = getBestMove(possibleMoves);
+            placeBlock(bestMove.block, bestMove.pt);
+        }
+
+
 
         fillCorners();
         enemy.fillCorners();
@@ -134,7 +138,7 @@ public class PlayerAlgorithm extends Player {
         }
 
         Random rand = new Random();
-        Move bestMove = bestMoves.get(rand.nextInt(bestMoves.size()));
+        Move bestMove = bestMoves.get(rand.nextInt(bestMoves.size()-1));
         return bestMove;
     }
 
