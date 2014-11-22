@@ -138,7 +138,7 @@ public class PlayerAlgorithm extends Player {
         }
 
         Random rand = new Random();
-        Move bestMove = bestMoves.get(rand.nextInt(bestMoves.size()-1));
+        Move bestMove = bestMoves.get(rand.nextInt(bestMoves.size()));
         return bestMove;
     }
 
