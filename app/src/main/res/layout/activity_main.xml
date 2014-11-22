@@ -34,14 +34,15 @@
                 android:text="@string/txtStep"
                 android:id="@+id/btnStep"
                 android:layout_below="@+id/playerTurn"
-                android:layout_toStartOf="@+id/btnReset" />
+                android:layout_toLeftOf="@+id/btnReset" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txtreset"
                 android:id="@+id/btnReset"
                 android:layout_alignTop="@+id/btnStep"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"/>
             <HorizontalScrollView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
