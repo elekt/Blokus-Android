@@ -76,7 +76,7 @@ public abstract class Player {
 
     public boolean placeBlock(Block block, Point coord){
         if(block == null){
-            Log.e("BLOCKS", "BLOCK ALREADY REMOVED");
+            Log.e("PLAYER", "BLOCK ALREADY REMOVED");
         } else {
             // lerakja a blockot
             Map map = Map.getInstance();

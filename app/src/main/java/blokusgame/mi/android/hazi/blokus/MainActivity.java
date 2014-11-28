@@ -93,19 +93,33 @@ public class MainActivity extends Activity implements BoardTouchListener {
     }
 
     private boolean step() {
-        if(blockIndex>=0 && choosenPoint!=null) {
-            if (player1.placeBlock(choosenBlock, choosenPoint)) {
-                boardView.setOverlayBlock(null, null);
-                horizontal_scroll.removeView(choosenBlockView);
-                choosenBlock = null;
-                choosenPoint = null;
-                choosenBlockView = null;
-                boardView.setCorners(player2.getCorners());
-                rotations_layout.removeAllViews();
-                // AI jatekos lepese
-                player2.nextStep();
-                boardView.setCorners(player1.getCorners());
-                slidingUpLayout.expandPanel();
+        if (choosenBlock != null && choosenPoint != null) {
+            boolean isGameEnd = true;
+            // corners not empty = there is still place to step
+            if (!player1.getCorners().isEmpty()) {
+                isGameEnd = false;
+                if (player1.placeBlock(choosenBlock, choosenPoint)) {
+                    boardView.setOverlayBlock(null, null);
+                    horizontal_scroll.removeView(choosenBlockView);
+                    choosenBlock = null;
+                    choosenPoint = null;
+                    choosenBlockView = null;
+                    rotations_layout.removeAllViews();
+                    boardView.invalidate();
+
+                    // AI player only steps is player did actually step
+                    if (!player2.getCorners().isEmpty()) {
+                        // redundancy
+                        isGameEnd = false;
+                        player2.nextStep();
+                        boardView.setCorners(player1.getCorners());
+                        slidingUpLayout.expandPanel();
+                    }
+                }
+            }
+            if (isGameEnd) {
+                // TODO count points, end popup window
+                Log.e("MAIN", "Game ended");
             }
         } else{
             Toast.makeText(getApplicationContext(), "Block, or cell not selected", Toast.LENGTH_SHORT).show();
