@@ -22,7 +22,6 @@ public class PlayerAlgorithm extends Player {
         }
     }
 
-
     private ArrayList<Move> getAllPossibleMoves(){
         ArrayList<Move> moves = new ArrayList<Move>();
 
@@ -97,8 +96,8 @@ public class PlayerAlgorithm extends Player {
         }
     }
 
-    // a mainbol ezt kell hivni, nem a placeblockot. sry
-    public void nextStep() {
+    // AI player chooses, and places block here
+    public boolean nextStep() {
         if (Map.getInstance().getSteps() >= 2)
             fillCorners();
 
@@ -108,12 +107,17 @@ public class PlayerAlgorithm extends Player {
             ArrayList<Move> possibleMoves = getNLongMoves(5);
             if(possibleMoves.isEmpty()){
                 possibleMoves = getAllPossibleMoves();
+                if (possibleMoves.isEmpty())
+                    return false;
             }
 
             Move bestMove = getBestMove(possibleMoves);
             placeBlock(bestMove.block, bestMove.pt);
         } else{
             ArrayList<Move> possibleMoves = getAllPossibleMoves();
+            if(possibleMoves.isEmpty())
+                return false;
+
             Move bestMove = getBestMove(possibleMoves);
             placeBlock(bestMove.block, bestMove.pt);
         }
@@ -122,6 +126,7 @@ public class PlayerAlgorithm extends Player {
 
         fillCorners();
         enemy.fillCorners();
+        return true;
     }
 
     private Move getBestMove(ArrayList<Move> moves) {
