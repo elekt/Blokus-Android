@@ -1,5 +1,7 @@
 package blokusgame.mi.android.hazi.blokus.GameLogic;
 
+import android.widget.PopupWindow;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
@@ -13,6 +15,7 @@ public class PlayerAlgorithm extends Player {
     private int steps = 0;
     private ArrayList<Integer> firstSteps = new ArrayList<Integer>(3);
     private Player enemy;
+    private PopupWindow gameEndPopUp;
 
     public PlayerAlgorithm(int _color) {
         super(_color);
@@ -54,6 +57,8 @@ public class PlayerAlgorithm extends Player {
                 possibleMoves.addAll(getNLongMoves(1));
             }
         }
+        if(possibleMoves.isEmpty())
+            return false;
 
         Move bestMove = getBestMove(possibleMoves);
         placeBlock(bestMove.block, bestMove.pt);

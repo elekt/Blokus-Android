@@ -1,6 +1,7 @@
 package blokusgame.mi.android.hazi.blokus;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,9 +12,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -75,13 +79,6 @@ public class MainActivity extends Activity implements BoardTouchListener {
                     // if the player is out of moves, finish
                     if(player1.getCorners().isEmpty()){
                         while(!player2.getCorners().isEmpty()){
-                            // 'lil delay
-                            final Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                }
-                            }, 500);
                             AIstep();
                         }
                     }
@@ -89,17 +86,17 @@ public class MainActivity extends Activity implements BoardTouchListener {
 
                 boardView.invalidate();
                 if (player1.getCorners().isEmpty() && player2.getCorners().isEmpty()) {
-                    // TODO count points, end popup window
                     Log.e("MAIN", "Game ended");
-                    Point result = new Point(0,0);
+                    Point results = new Point(0,0);
                     for(int i=0; i<map.getLineSize()*map.getLineSize(); ++i){
                         if(map.getCell(i)==player1.getColor()){
-                            ++result.x;
+                            ++results.x;
                         } else if(map.getCell(i)==player2.getColor()){
-                            ++result.y;
+                            ++results.y;
                         }
                     }
-                    Log.e("POINTS: ", "Human: "+String.valueOf(result.x)+" AI: "+ String.valueOf(result.y));
+                    showResultDialog(results);
+                    Log.e("POINTS: ", "Human: "+String.valueOf(results.x)+" AI: "+ String.valueOf(results.y));
                 }
             }
         });
@@ -107,38 +104,41 @@ public class MainActivity extends Activity implements BoardTouchListener {
         btnReset.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                map.reset();
-                // TODO tobbjatekosra
-                player1 = new PlayerHuman(1);
-                setPlayer(player1);
-                player2 = new PlayerAlgorithm(2);
-                player2.setEnemy(player1);
-                boardView.setCorners(player1.getCorners());
-                boardView.setOverlayBlock(null, null);
-                boardView.invalidate();
-                rotations_layout.removeAllViews();
+                reset();
             }
         });
+    }
+
+    private void reset() {
+        map.reset();
+        // TODO tobbjatekosra
+        player1 = new PlayerHuman(1);
+        setPlayer(player1);
+        player2 = new PlayerAlgorithm(2);
+        player2.setEnemy(player1);
+        boardView.setCorners(player1.getCorners());
+        boardView.setOverlayBlock(null, null);
+        boardView.invalidate();
+        rotations_layout.removeAllViews();
     }
 
     private boolean step() {
         if (choosenBlock != null && choosenPoint != null) {
             // corners not empty = there is still place to step
-            if (!player1.getCorners().isEmpty()) {
-                if (player1.placeBlock(choosenBlock, choosenPoint)) {
-                    boardView.setOverlayBlock(null, null);
-                    horizontal_scroll.removeView(choosenBlockView);
-                    choosenBlock = null;
-                    choosenPoint = null;
-                    choosenBlockView = null;
-                    rotations_layout.removeAllViews();
-                    boardView.invalidate();
-                }
+            if (!player1.getCorners().isEmpty() && player1.placeBlock(choosenBlock, choosenPoint)) {
+                boardView.setOverlayBlock(null, null);
+                horizontal_scroll.removeView(choosenBlockView);
+                choosenBlock = null;
+                choosenPoint = null;
+                choosenBlockView = null;
+                rotations_layout.removeAllViews();
+                boardView.invalidate();
             } else{
                 return false;
             }
         } else{
             Toast.makeText(getApplicationContext(), "Block, or cell not selected", Toast.LENGTH_SHORT).show();
+            return false;
         }
         return true;
     }
@@ -223,5 +223,45 @@ public class MainActivity extends Activity implements BoardTouchListener {
             boardView.setOverlayBlock(choosenBlock, choosenPoint);
             boardView.invalidate();
         }
+    }
+
+    private void showResultDialog(Point results){
+        // custom dialog
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.game_end);
+        dialog.setTitle("GameOver");
+
+        // set the custom dialog components - text, image and button
+        TextView resultText = (TextView) dialog.findViewById(R.id.txt_result);
+        TextView firstResult = (TextView) dialog.findViewById(R.id.txt_first_result);
+        TextView secondResult = (TextView) dialog.findViewById(R.id.txt_second_result);
+
+        if(results.x==results.y) {
+            resultText.setText("Its a draw");
+            firstResult.setText("Your points: "+String.valueOf(results.x));
+            secondResult.setText("Opponent's points: "+String.valueOf(results.y));
+        } else {
+            if(results.x>results.y) {
+                resultText.setText("You won!!!");
+                firstResult.setText("Your points: "+String.valueOf(results.x));
+                secondResult.setText("Opponent's points: "+String.valueOf(results.y));
+            } else {
+                resultText.setText("You lost...");
+                firstResult.setText("Opponent's points: "+String.valueOf(results.x));
+                secondResult.setText("Yout points: "+String.valueOf(results.y));
+            }
+        }
+
+        Button dialogButton = (Button) dialog.findViewById(R.id.btn_reset);
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                reset();
+            }
+        });
+
+        dialog.show();
     }
 }

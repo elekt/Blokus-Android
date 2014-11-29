@@ -9,5 +9,6 @@
     <string name="txtBlockindex">Block index:</string>
     <string name="txtStep">Step</string>
     <string name="txtreset">Reset</string>
+    <string name="new_game">New Game</string>
 
 </resources>
