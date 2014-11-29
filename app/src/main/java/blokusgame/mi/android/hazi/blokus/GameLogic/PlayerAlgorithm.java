@@ -10,16 +10,58 @@ import java.util.Random;
 public class PlayerAlgorithm extends Player {
     private Map map = Map.getInstance();
     private int[][] values;
+    private int steps = 0;
+    private ArrayList<Integer> firstSteps = new ArrayList<Integer>(3);
     private Player enemy;
 
     public PlayerAlgorithm(int _color) {
         super(_color);
+
+        // put the first steps in random order in
+        Random rand = new Random();
+        int temp = rand.nextInt(3);
+        firstSteps.add(14 + temp);
+        firstSteps.add(14 + (temp+1)%3);
+        firstSteps.add(14 + (temp+2)%3);
+
         values = new int[(int)map.getLineSize()][(int)map.getLineSize()];
         for(int i=0; i<map.getLineSize(); ++i){
             for (int j=0; j<map.getLineSize(); ++j){
                 values[i][j] = 1;
             }
         }
+    }
+
+    // AI player chooses, and places block here
+    public boolean nextStep() {
+        if (Map.getInstance().getSteps() >= 2)
+            fillCorners();
+
+        fillValues();
+        ArrayList<Move> possibleMoves = new ArrayList<Move>();
+
+        // first 2 moves are from the 3 blocks from the firstSteps
+        if(steps<2){
+            possibleMoves.addAll(getMovesByBlock(firstSteps.remove(0)));
+        }else {
+            // for optimalization, first only seaarches only the longest pieces
+            possibleMoves.addAll(getNLongMoves(5));
+            possibleMoves.addAll(getNLongMoves(4));
+
+            if (possibleMoves.isEmpty()) {
+                possibleMoves.addAll(getNLongMoves(3));
+                possibleMoves.addAll(getNLongMoves(2));
+                possibleMoves.addAll(getNLongMoves(1));
+            }
+        }
+
+        Move bestMove = getBestMove(possibleMoves);
+        placeBlock(bestMove.block, bestMove.pt);
+        ++steps;
+
+        fillCorners();
+        enemy.fillCorners();
+        return true;
     }
 
     private ArrayList<Move> getAllPossibleMoves(){
@@ -57,6 +99,27 @@ public class PlayerAlgorithm extends Player {
         return moves;
     }
 
+    private ArrayList<Move> getMovesByBlock(int blockId){
+        ArrayList<Move> moves = new ArrayList<Move>();
+
+        Block block = getBlock(blockId);
+        ArrayList<Block> rotations = block.getRotations();
+        for (Point corner : corners) {
+            for (Block rBlock : rotations) {
+                for (int i = 0; i < rBlock.getSize(); ++i) {
+                    Point pt = new Point(corner.x - block.getPoint(i).x, corner.y - block.getPoint(i).y);
+                    if (map.isPlaceable(rBlock, pt, corners)) {
+                        Block newBlock = new Block(rBlock);
+                        int value = getValue(newBlock, pt);
+                        Move move = new Move(newBlock, pt, value);
+                        moves.add(move);
+                    }
+                }
+            }
+        }
+        return moves;
+    }
+
     private int getValue(Block block, Point pt) {
         int value = 0;
 
@@ -68,6 +131,7 @@ public class PlayerAlgorithm extends Player {
         return value;
     }
 
+    // focuses on the opponents corners, and side-to-side meets
     private void fillValues(){
         ArrayList<Point> enemyCorners = enemy.getCorners();
         for(int i=0; i<map.getLineSize(); ++i){
@@ -94,39 +158,6 @@ public class PlayerAlgorithm extends Player {
                 }
             }
         }
-    }
-
-    // AI player chooses, and places block here
-    public boolean nextStep() {
-        if (Map.getInstance().getSteps() >= 2)
-            fillCorners();
-
-        fillValues();
-
-        if (map.getSteps() <= 10) {
-            ArrayList<Move> possibleMoves = getNLongMoves(5);
-            if(possibleMoves.isEmpty()){
-                possibleMoves = getAllPossibleMoves();
-                if (possibleMoves.isEmpty())
-                    return false;
-            }
-
-            Move bestMove = getBestMove(possibleMoves);
-            placeBlock(bestMove.block, bestMove.pt);
-        } else{
-            ArrayList<Move> possibleMoves = getAllPossibleMoves();
-            if(possibleMoves.isEmpty())
-                return false;
-
-            Move bestMove = getBestMove(possibleMoves);
-            placeBlock(bestMove.block, bestMove.pt);
-        }
-
-
-
-        fillCorners();
-        enemy.fillCorners();
-        return true;
     }
 
     private Move getBestMove(ArrayList<Move> moves) {

@@ -185,16 +185,6 @@ public class BlockFactory {
         int imageId = R.drawable.w_5;
         return new Block(points, color, imageId, 15);
     }
-    private static Block create5V(int color){
-        ArrayList<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0));
-        points.add(new Point(1, 0));
-        points.add(new Point(2, 0));
-        points.add(new Point(2, 1));
-        points.add(new Point(2, 2));
-        int imageId = R.drawable.v_5;
-        return new Block(points, color, imageId, 16);
-    }
     private static Block create5F(int color){
         ArrayList<Point> points = new ArrayList<Point>();
         points.add(new Point(0, 0));
@@ -203,6 +193,16 @@ public class BlockFactory {
         points.add(new Point(1, 2));
         points.add(new Point(2, 1));
         int imageId = R.drawable.f_5;
+        return new Block(points, color, imageId, 16);
+    }
+    private static Block create5V(int color){
+        ArrayList<Point> points = new ArrayList<Point>();
+        points.add(new Point(0, 0));
+        points.add(new Point(1, 0));
+        points.add(new Point(2, 0));
+        points.add(new Point(2, 1));
+        points.add(new Point(2, 2));
+        int imageId = R.drawable.v_5;
         return new Block(points, color, imageId, 17);
     }
     private static Block create5P(int color){
