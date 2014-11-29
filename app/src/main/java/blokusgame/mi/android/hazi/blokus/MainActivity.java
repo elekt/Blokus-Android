@@ -3,6 +3,7 @@ package blokusgame.mi.android.hazi.blokus;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -69,8 +70,36 @@ public class MainActivity extends Activity implements BoardTouchListener {
         btnStep.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(step()) {
-                    boardView.invalidate();
+                if(step()){
+                    AIstep();
+                    // if the player is out of moves, finish
+                    if(player1.getCorners().isEmpty()){
+                        while(!player2.getCorners().isEmpty()){
+                            // 'lil delay
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                }
+                            }, 500);
+                            AIstep();
+                        }
+                    }
+                }
+
+                boardView.invalidate();
+                if (player1.getCorners().isEmpty() && player2.getCorners().isEmpty()) {
+                    // TODO count points, end popup window
+                    Log.e("MAIN", "Game ended");
+                    Point result = new Point(0,0);
+                    for(int i=0; i<map.getLineSize()*map.getLineSize(); ++i){
+                        if(map.getCell(i)==player1.getColor()){
+                            ++result.x;
+                        } else if(map.getCell(i)==player2.getColor()){
+                            ++result.y;
+                        }
+                    }
+                    Log.e("POINTS: ", "Human: "+String.valueOf(result.x)+" AI: "+ String.valueOf(result.y));
                 }
             }
         });
@@ -94,10 +123,8 @@ public class MainActivity extends Activity implements BoardTouchListener {
 
     private boolean step() {
         if (choosenBlock != null && choosenPoint != null) {
-            boolean isGameEnd = true;
             // corners not empty = there is still place to step
             if (!player1.getCorners().isEmpty()) {
-                isGameEnd = false;
                 if (player1.placeBlock(choosenBlock, choosenPoint)) {
                     boardView.setOverlayBlock(null, null);
                     horizontal_scroll.removeView(choosenBlockView);
@@ -106,27 +133,28 @@ public class MainActivity extends Activity implements BoardTouchListener {
                     choosenBlockView = null;
                     rotations_layout.removeAllViews();
                     boardView.invalidate();
-
-                    // AI player only steps is player did actually step
-                    if (!player2.getCorners().isEmpty()) {
-                        // redundancy
-                        isGameEnd = false;
-                        player2.nextStep();
-                        boardView.setCorners(player1.getCorners());
-                        slidingUpLayout.expandPanel();
-                    }
                 }
-            }
-            if (isGameEnd) {
-                // TODO count points, end popup window
-                Log.e("MAIN", "Game ended");
+            } else{
+                return false;
             }
         } else{
             Toast.makeText(getApplicationContext(), "Block, or cell not selected", Toast.LENGTH_SHORT).show();
         }
         return true;
     }
+    private boolean AIstep(){
+        // AI player only steps is player did actually step
+        if (!player2.getCorners().isEmpty()) {
+            // redundancy
+            player2.nextStep();
+            boardView.setCorners(player1.getCorners());
+            slidingUpLayout.expandPanel();
+        } else{
+            return false;
+        }
 
+        return true;
+    }
     void setPlayer(Player player){
         ArrayList<Block> blocks = new ArrayList<Block>();
         horizontal_scroll.removeAllViews();

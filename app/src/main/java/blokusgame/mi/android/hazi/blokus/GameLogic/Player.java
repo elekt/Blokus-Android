@@ -20,7 +20,7 @@ public abstract class Player {
     }
 
     protected void setColor(int _color){ color = _color; }
-    protected int getColor(){ return color; }
+    public int getColor(){ return color; }
 
     public boolean isOutOfMoves(){ return false; }
 
