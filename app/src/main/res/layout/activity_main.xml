@@ -31,24 +31,25 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/txtStep"
-                android:id="@+id/btnStep"
-                android:layout_below="@+id/playerTurn"
-                android:layout_toLeftOf="@+id/btnReset" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txtreset"
-                android:id="@+id/btnReset"
+                android:text="@string/btn_menu"
+                android:id="@+id/btn_menu"
                 android:layout_alignTop="@+id/btnStep"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txtStep"
+                android:id="@+id/btnStep"
+                android:layout_below="@+id/playerTurn"
+                android:layout_toStartOf="@id/btn_menu"
+                android:layout_toLeftOf="@id/btn_menu"/>
             <HorizontalScrollView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/btnReset">
+                android:layout_below="@id/btn_menu">
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:orientation="horizontal"
                     android:id="@+id/rotations_layout">

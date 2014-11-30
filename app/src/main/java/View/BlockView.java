@@ -33,30 +33,30 @@ public class BlockView extends View{
     }
 
     private void drawBlock(Canvas canvas) {
-        Point dim = block.getDimensions();
+        Point dimensions = block.getDimensions();
         Paint paintCell = new Paint();
         paintCell.setColor(Color.GREEN);
         paintCell.setStyle(Paint.Style.FILL);
 
-//        Point min = block.getMin();
-//        Point max = block.getMax();
-//        float offsetX = (min.x - dimensions.x/2.0f)<(max.x - dimensions.x/2.0f)?
-//                (min.x - dimensions.x/2.0f) : (max.x - dimensions.x/2.0f);
-//        float offsetY = (min.y - dimensions.y/2.0f)<(max.y - dimensions.y/2.0f)?
-//                (min.y - dimensions.y/2.0f) : (max.y - dimensions.y/2.0f);
-//        for(int i=0; i<block.getSize(); ++i){//todo
-//            float startX = center + block.getPoint(i).x*cellSize + offsetX;
-//            float startY = center + block.getPoint(i).y*cellSize + offsetY;
-//            canvas.drawRect(startX-cellSize/2, startY-cellSize/2,
-//                            startX+cellSize/2, startY+cellSize/2, paintCell);
-//        }
-
-        for(int i=0; i<block.getSize(); ++i) {//todo
-            Point pt = block.getPoint(i);
-            float startX = center - (pt.x* cellSize - (dim.x*cellSize)/2.0f);
-            float startY = center - (pt.y* cellSize - (dim.y*cellSize)/2.0f);
-            canvas.drawRect(startX, startY, startX + cellSize, startY + cellSize, paintCell);
+        Point min = block.getMin();
+        Point max = block.getMax();
+        float offsetX = (min.x - dimensions.x/2.0f)<(max.x - dimensions.x/2.0f)?
+                (min.x - dimensions.x/2.0f) : (max.x - dimensions.x/2.0f);
+        float offsetY = (min.y - dimensions.y/2.0f)<(max.y - dimensions.y/2.0f)?
+                (min.y - dimensions.y/2.0f) : (max.y - dimensions.y/2.0f);
+        for(int i=0; i<block.getSize(); ++i){//todo
+            float startX = center + block.getPoint(i).x*cellSize + offsetX;
+            float startY = center + block.getPoint(i).y*cellSize + offsetY;
+            canvas.drawRect(startX-cellSize/2, startY-cellSize/2,
+                            startX+cellSize/2, startY+cellSize/2, paintCell);
         }
+
+//        for(int i=0; i<block.getSize(); ++i) {//todo
+//            Point pt = block.getPoint(i);
+//            float startX = center - (pt.x* cellSize - (dim.x*cellSize)/2.0f);
+//            float startY = center - (pt.y* cellSize - (dim.y*cellSize)/2.0f);
+//            canvas.drawRect(startX, startY, startX + cellSize, startY + cellSize, paintCell);
+//        }
     }
 
     private void drawBackGround(Canvas canvas) {

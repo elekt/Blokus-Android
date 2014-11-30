@@ -104,11 +104,12 @@ public class MainActivity extends Activity implements BoardTouchListener {
                 }
             }
         });
-        Button btnReset = (Button) findViewById(R.id.btnReset);
+        Button btnReset = (Button) findViewById(R.id.btn_menu);
         btnReset.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 reset();
+                showMenuDialog();
             }
         });
     }
@@ -282,8 +283,8 @@ public class MainActivity extends Activity implements BoardTouchListener {
                 secondResult.setText("Opponent's points: "+String.valueOf(results.y));
             } else {
                 resultText.setText("You lost...");
-                firstResult.setText("Opponent's points: "+String.valueOf(results.x));
-                secondResult.setText("Yout points: "+String.valueOf(results.y));
+                firstResult.setText("Opponent's points: "+String.valueOf(results.y));
+                secondResult.setText("Yout points: "+String.valueOf(results.x));
             }
         }
 
