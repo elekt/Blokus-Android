@@ -230,7 +230,44 @@ public class MainActivity extends Activity implements BoardTouchListener {
             boardView.invalidate();
         }
     }
+    private void showMenuDialog(){
+        // custom dialog
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.game_end);
+        dialog.setTitle("Menu");
 
+        // set the custom dialog components - text, image and button
+        TextView resultText = (TextView) dialog.findViewById(R.id.btn);
+        TextView firstResult = (TextView) dialog.findViewById(R.id.txt_first_result);
+
+        if(results.x==results.y) {
+            resultText.setText("Its a draw");
+            firstResult.setText("Your points: "+String.valueOf(results.x));
+            secondResult.setText("Opponent's points: "+String.valueOf(results.y));
+        } else {
+            if(results.x>results.y) {
+                resultText.setText("You won!!!");
+                firstResult.setText("Your points: "+String.valueOf(results.x));
+                secondResult.setText("Opponent's points: "+String.valueOf(results.y));
+            } else {
+                resultText.setText("You lost...");
+                firstResult.setText("Opponent's points: "+String.valueOf(results.x));
+                secondResult.setText("Yout points: "+String.valueOf(results.y));
+            }
+        }
+
+        Button dialogButton = (Button) dialog.findViewById(R.id.btn_reset);
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                reset();
+            }
+        });
+
+        dialog.show();
+    }
     private void showResultDialog(Point results){
         // custom dialog
         final Dialog dialog = new Dialog(MainActivity.this);
