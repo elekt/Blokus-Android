@@ -233,6 +233,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
         final Dialog dialog = new Dialog(MainActivity.this);
         dialog.setContentView(R.layout.game_start);
         dialog.setTitle("Menu");
+        dialog.setCanceledOnTouchOutside(false);
 
         // set the custom dialog components - text, image and button
         Button playerStart = (Button) dialog.findViewById(R.id.btn_player_start);
@@ -263,6 +264,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
         final Dialog dialog = new Dialog(MainActivity.this);
         dialog.setContentView(R.layout.game_end);
         dialog.setTitle("GameOver");
+        dialog.setCanceledOnTouchOutside(false);
 
         // set the custom dialog components - text, image and button
         TextView resultText = (TextView) dialog.findViewById(R.id.txt_result);
