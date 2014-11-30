@@ -2,7 +2,6 @@ package blokusgame.mi.android.hazi.blokus.GameLogic;
 
 import android.widget.PopupWindow;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -116,8 +115,10 @@ public class PlayerAlgorithm extends Player {
                     if (map.isPlaceable(rBlock, pt, corners)) {
                         Block newBlock = new Block(rBlock);
                         int value = getValue(newBlock, pt);
-                        Move move = new Move(newBlock, pt, value);
-                        moves.add(move);
+                        if(value != PlayerConstants.DEAD_CELL) {
+                            Move move = new Move(newBlock, pt, value);
+                            moves.add(move);
+                        }
                     }
                 }
             }
@@ -128,9 +129,14 @@ public class PlayerAlgorithm extends Player {
     private int getValue(Block block, Point pt) {
         int value = 0;
 
-        for(int i=0; i<block.getSize(); ++i){
+        for(int i=0; i<block.getSize() && value != PlayerConstants.DEAD_CELL; ++i){
             Point bPoint = block.getPoint(i);
-            value += values[pt.x+bPoint.x][pt.y+bPoint.y];
+            int adding = values[pt.x+bPoint.x][pt.y+bPoint.y];
+            if(adding == PlayerConstants.DEAD_CELL){
+                value = PlayerConstants.DEAD_CELL;
+            } else {
+                value += adding;
+            }
         }
 
         return value;
@@ -141,8 +147,8 @@ public class PlayerAlgorithm extends Player {
         ArrayList<Point> enemyCorners = enemy.getCorners();
         for(int i=0; i<map.getLineSize(); ++i){
             for(int j=0; j<map.getLineSize(); ++j){
-                if(map.getCell(i,j)!=0){
-                    values[i][j] = -100;
+                if(map.getCell(i,j)!=0 || hasTwoNeighbours(i, j)){
+                    values[i][j] = PlayerConstants.DEAD_CELL;
                 } else {
                     if (enemyCorners.contains(new Point(i, j))) {
                         values[i][j] += 10;
@@ -164,6 +170,25 @@ public class PlayerAlgorithm extends Player {
             }
         }
     }
+    // dead cells, who are empty, but their neighbours assure that no block will be over them
+    private boolean hasTwoNeighbours(int i, int j) {
+        Map map = Map.getInstance();
+        if(map.getCell(i,j)==0){
+            // if AI player is neighbouring
+            if(map.getCell(i, j+1)==color ||
+                    map.getCell(i+1, j)==color ||
+                    map.getCell(i, j-1)==color) {
+                // if there is an enemy neighbour
+                if (map.getCell(i, j + 1) == enemy.getColor() ||
+                        map.getCell(i + 1, j) == enemy.getColor() ||
+                        map.getCell(i, j - 1) == enemy.getColor()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     private Move getBestMove(ArrayList<Move> moves) {
         int max = -1;
