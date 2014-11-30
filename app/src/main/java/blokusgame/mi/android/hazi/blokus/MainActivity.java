@@ -73,11 +73,6 @@ public class MainActivity extends Activity implements BoardTouchListener {
         setPlayer(player1);
 
         player2.setEnemy(player1);
-        // if the AI starts, make it here
-        if(!isHumanFirst)
-            AIstep();
-
-
 
         Button btnStep = (Button) findViewById(R.id.btnStep);
         btnStep.setOnClickListener(new OnClickListener() {
@@ -255,7 +250,10 @@ public class MainActivity extends Activity implements BoardTouchListener {
             @Override
             public void onClick(View v) {
                 isHumanFirst = false;
+                // have to do it here unfortunately
+                AIstep();
                 dialog.dismiss();
+                boardView.invalidate();
             }
         });
         dialog.show();
