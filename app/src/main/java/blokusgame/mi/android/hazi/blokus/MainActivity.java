@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -17,12 +16,11 @@ import android.widget.Toast;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
+import View.BlockView;
 import View.BoardTouchListener;
-import View.*;
+import View.BoardView;
 import blokusgame.mi.android.hazi.blokus.GameLogic.Block;
 import blokusgame.mi.android.hazi.blokus.GameLogic.Map;
 import blokusgame.mi.android.hazi.blokus.GameLogic.Player;
@@ -49,6 +47,8 @@ public class MainActivity extends Activity implements BoardTouchListener {
     private Block choosenBlock = null;
     private int blockIndex = -1;
 
+    private boolean isHumanFirst = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +68,13 @@ public class MainActivity extends Activity implements BoardTouchListener {
         slidingUpLayout.setCoveredFadeColor(Color.TRANSPARENT);
 
         setPlayer(player1);
+
         player2.setEnemy(player1);
+        // if the AI starts, make it here
+        if(!isHumanFirst)
+            AIstep();
+
+
 
         Button btnStep = (Button) findViewById(R.id.btnStep);
         btnStep.setOnClickListener(new OnClickListener() {

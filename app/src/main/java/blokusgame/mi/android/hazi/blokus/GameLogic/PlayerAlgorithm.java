@@ -1,7 +1,5 @@
 package blokusgame.mi.android.hazi.blokus.GameLogic;
 
-import android.widget.PopupWindow;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -11,10 +9,8 @@ import java.util.Random;
 public class PlayerAlgorithm extends Player {
     private Map map = Map.getInstance();
     private int[][] values;
-    private int steps = 0;
     private ArrayList<Integer> firstSteps = new ArrayList<Integer>(3);
     private Player enemy;
-    private PopupWindow gameEndPopUp;
 
     public PlayerAlgorithm(int _color) {
         super(_color);
@@ -36,8 +32,7 @@ public class PlayerAlgorithm extends Player {
 
     // AI player chooses, and places block here
     public boolean nextStep() {
-        if (Map.getInstance().getSteps() >= 2)
-            fillCorners();
+        fillCorners();
 
         fillValues();
         ArrayList<Move> possibleMoves = new ArrayList<Move>();

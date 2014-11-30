@@ -26,6 +26,8 @@ public abstract class Player {
 
     // searches for all possible corners, and if any block can fill there, puts
     protected void fillCorners(){
+        if(steps==0)
+            return;
         corners.clear();
         Map map = Map.getInstance();
         for(int i=0; i<map.getLineSize(); ++i){
@@ -108,5 +110,5 @@ public abstract class Player {
     protected ArrayList<Block> blocks;
     protected ArrayList<Point> corners;
     protected int color;
-
+    protected int steps = 0;
 }
