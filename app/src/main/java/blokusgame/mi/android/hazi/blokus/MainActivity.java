@@ -284,7 +284,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
             } else {
                 resultText.setText("You lost...");
                 firstResult.setText("Opponent's points: "+String.valueOf(results.y));
-                secondResult.setText("Yout points: "+String.valueOf(results.x));
+                secondResult.setText("Your points: "+String.valueOf(results.x));
             }
         }
 

@@ -41,7 +41,7 @@ public class PlayerAlgorithm extends Player {
         if(steps<2){
             possibleMoves.addAll(getMovesByBlock(firstSteps.remove(0)));
         }else {
-            // for optimalization, first only seaarches only the longest pieces
+            // for optimalization, first only searches only the longest pieces
             possibleMoves.addAll(getNLongMoves(5));
             possibleMoves.addAll(getNLongMoves(4));
 
