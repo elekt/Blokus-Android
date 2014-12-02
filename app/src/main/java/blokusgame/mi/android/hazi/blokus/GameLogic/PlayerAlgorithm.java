@@ -133,8 +133,42 @@ public class PlayerAlgorithm extends Player {
                 value += adding;
             }
         }
+        // to maximalize the number of corners
+        value += 5*validCornersCount(block, pt);
 
         return value;
+    }
+
+    private int validCornersCount(Block block, Point pt) {
+        int ret = 0;
+
+        for(int i=0; i<block.getSize(); ++i){
+            Point blockPoint = new Point(pt.x+block.getPoint(i).x, pt.y+block.getPoint(i).y);
+
+            // the additional neighbour color check frees a lot of computing time, and solves a bug. the bug is concerning me
+            Point temp = new Point(blockPoint.x-1, blockPoint.y-1);
+            if(map.getCell(temp)==0 && map.getCell(blockPoint.x-1, blockPoint.y)!=color &&
+                    map.getCell(blockPoint.x, blockPoint.y-1)!=color && checkCorner(temp)){
+                ++ret;
+            }
+            temp = new Point(blockPoint.x-1, blockPoint.y+1);
+            if(map.getCell(temp)==0 && map.getCell(blockPoint.x-1, blockPoint.y)!=color &&
+                    map.getCell(blockPoint.x, blockPoint.y+1)!=color && checkCorner(temp)){
+                ++ret;
+            }
+            temp = new Point(blockPoint.x+1, blockPoint.y-1);
+            if(map.getCell(temp)==0 && map.getCell(blockPoint.x+1, blockPoint.y)!=color &&
+                    map.getCell(blockPoint.x, blockPoint.y-1)!=color && checkCorner(temp)){
+                ++ret;
+            }
+            temp = new Point(blockPoint.x+1, blockPoint.y+1);
+            if(map.getCell(temp)==0 && map.getCell(blockPoint.x+1, blockPoint.y)!=color &&
+                    map.getCell(blockPoint.x, blockPoint.y+1)!=color && checkCorner(temp)){
+                ++ret;
+            }
+        }
+
+        return ret;
     }
 
     // focuses on the opponents corners, and side-to-side meets

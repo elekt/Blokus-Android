@@ -59,8 +59,17 @@ public abstract class Player {
     }
 
     // we have to fit all blocks, all possible ways, until we find any that fits there
-    private boolean checkCorner(Point corner) {
+    protected boolean checkCorner(Point corner) {
         Map map = Map.getInstance();
+
+        // for optimalization, if the player still has the 1 piece block, check only for that
+        if(getBlock(0)!=null) {
+            if (map.isPlaceable(getBlock(0), corner)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
         for(Block block : blocks){
             ArrayList<Block> rotations = block.getRotations();
