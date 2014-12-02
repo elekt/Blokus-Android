@@ -67,7 +67,7 @@ public abstract class Player {
             for (Block rBlock : rotations) {
                 for(int i=0; i<rBlock.getSize(); ++i){
                     Point pt = new Point(corner.x - block.getPoint(i).x, corner.y - block.getPoint(i).y);
-                    if (map.isPlaceable(rBlock, pt)) {
+                    if (rBlock.isContaining(pt, corner) && map.isPlaceable(rBlock, pt)) {
                         return true;
                     }
                 }

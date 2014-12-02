@@ -83,14 +83,20 @@ public class Map {
             Point temp1 = new Point(pt.x +  block.getPoint(i).x + 1, pt.y + block.getPoint(i).y + 0);
             Point temp2 = new Point(pt.x +  block.getPoint(i).x + 0, pt.y + block.getPoint(i).y + 1);
             Point temp3 = new Point(pt.x +  block.getPoint(i).x + 0, pt.y + block.getPoint(i).y - 1);
-            if (getCell(temp0)==block.getColor() ||
-                    getCell(temp1)==block.getColor() ||
-                    getCell(temp2)==block.getColor() ||
-                    getCell(temp3)==block.getColor()
-                    )
-            {
+            Integer color = block.getColor();
+            boolean isNeighbour = getCell(temp0)==color;
+            if(isNeighbour)
                 return false;
-            }
+            isNeighbour = color.equals(getCell(temp1));
+            if(isNeighbour)
+                return false;
+            isNeighbour = color.equals(getCell(temp2));
+            if(isNeighbour)
+                return false;
+            isNeighbour = color.equals(getCell(temp3));
+            if(isNeighbour)
+                return false;
+
         }
         return true;
     }

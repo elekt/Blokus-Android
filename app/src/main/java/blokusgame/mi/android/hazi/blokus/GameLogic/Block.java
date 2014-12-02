@@ -3,8 +3,6 @@ package blokusgame.mi.android.hazi.blokus.GameLogic;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 
 /**
  * Created by elekt on 2014.10.21..
@@ -75,8 +73,6 @@ public class Block {
         Block ret = new Block(this);
         ret.points = newBlock0;//this is bad; its private
         return ret;
-
-
     }
     @Override
     public boolean equals(Object b){//todo
@@ -161,6 +157,16 @@ public class Block {
         return ret;
     }
 
+    public boolean isContaining(Point start, Point corner) {
+        for(int i=0; i<points.size(); ++i){
+            Point pt = new Point(start.x+points.get(i).x, start.y+points.get(i).y);
+            if(pt.equals(corner)){
+                return true;
+            }
+        }
+            return false;
+    }
+
 
     // TODO
     public ArrayList<Block> getRotations() {
@@ -187,6 +193,4 @@ public class Block {
 
         return rotatedBlocksSlim;
     }
-
-
 }
