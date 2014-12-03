@@ -294,6 +294,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                isHumanFirst = !isHumanFirst;
                 reset();
             }
         });
