@@ -71,10 +71,6 @@ public class MainActivity extends Activity implements BoardTouchListener {
         // show the menu
         showMenuDialog();
 
-        setPlayer(player1);
-
-        player2.setEnemy(player1);
-
         Button btnStep = (Button) findViewById(R.id.btnStep);
         btnStep.setOnClickListener(new OnClickListener() {
             @Override
@@ -115,9 +111,14 @@ public class MainActivity extends Activity implements BoardTouchListener {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        reset();
+    }
+
     private void reset() {
         map.reset();
-        // TODO tobbjatekosra
         player1 = new PlayerHuman(1);
         setPlayer(player1);
         player2 = new PlayerAlgorithm(2);
