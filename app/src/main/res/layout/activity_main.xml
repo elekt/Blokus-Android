@@ -7,6 +7,7 @@
         android:layout_height="match_parent"
         android:gravity="bottom"
         sothree:panelHeight="68dp"
+        sothree:collapsedHeight="2dp"
         sothree:shadowHeight="4dp"
         tools:context=".MainActivity">
 
@@ -20,14 +21,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_centerHorizontal="true"/>
-            <TextView
-                android:id="@+id/playerTurn"
-                android:textColor="#ff063dff"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/playerTxt"
-                android:layout_below="@+id/boardView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/txtStep"
                 android:id="@+id/btnStep"
-                android:layout_below="@+id/playerTurn"
+                android:layout_below="@+id/boardView"
                 android:layout_toStartOf="@id/btn_menu"
                 android:layout_toLeftOf="@id/btn_menu"/>
             <HorizontalScrollView
@@ -60,7 +53,7 @@
         </RelativeLayout>
 
         <HorizontalScrollView
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="wrap_content"

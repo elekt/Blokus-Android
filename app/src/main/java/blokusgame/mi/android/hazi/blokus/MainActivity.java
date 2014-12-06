@@ -66,6 +66,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
 
         slidingUpLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         slidingUpLayout.setCoveredFadeColor(Color.TRANSPARENT);
+        slidingUpLayout.setPanelHeight((int) getResources().getDimension(R.dimen.collapsed_height));
 
         // show the menu
         showMenuDialog();
@@ -216,6 +217,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
             }
             choosenBlockView = (ImageView) view;
             slidingUpLayout.collapsePanel();
+            slidingUpLayout.setPanelHeight(1);
         }
     }
     public class RotatedBlockViewOnClickListener implements OnClickListener{
