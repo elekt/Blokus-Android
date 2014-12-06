@@ -68,6 +68,8 @@ public class MainActivity extends Activity implements BoardTouchListener {
         slidingUpLayout.setCoveredFadeColor(Color.TRANSPARENT);
         slidingUpLayout.setPanelHeight((int) getResources().getDimension(R.dimen.collapsed_height));
 
+        reset();
+
         // show the menu
         showMenuDialog();
 
@@ -112,8 +114,9 @@ public class MainActivity extends Activity implements BoardTouchListener {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onDestroy() {
+        super.onDestroy();
+        // if app restarts we dont want the previous game (strange bugfix)
         reset();
     }
 
