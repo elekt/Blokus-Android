@@ -7,8 +7,7 @@
         android:layout_height="match_parent"
         android:gravity="bottom"
         sothree:panelHeight="68dp"
-        sothree:collapsedHeight="2dp"
-        sothree:shadowHeight="4dp"
+        sothree:shadowHeight="10dp"
         tools:context=".MainActivity">
 
         <RelativeLayout

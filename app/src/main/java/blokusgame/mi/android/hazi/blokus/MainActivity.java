@@ -217,7 +217,6 @@ public class MainActivity extends Activity implements BoardTouchListener {
             }
             choosenBlockView = (ImageView) view;
             slidingUpLayout.collapsePanel();
-            slidingUpLayout.setPanelHeight(1);
         }
     }
     public class RotatedBlockViewOnClickListener implements OnClickListener{
