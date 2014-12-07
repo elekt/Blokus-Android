@@ -84,9 +84,9 @@ public class PlayerAlgorithm extends Player {
                         for (int i = 0; i < rBlock.getSize(); ++i) {
                             Point pt = new Point(corner.x - block.getPoint(i).x, corner.y - block.getPoint(i).y);
                             if (map.isPlaceable(rBlock, pt, corners)) {
-                                Block newBlock = new Block(rBlock);
-                                int value = getValue(newBlock, pt);
-                                Move move = new Move(newBlock, pt, value);
+                                //Block newBlock = new Block(rBlock);
+                                int value = getValue(rBlock, pt);
+                                Move move = new Move(rBlock, pt, value);
                                 moves.add(move);
                             }
                         }
@@ -120,6 +120,34 @@ public class PlayerAlgorithm extends Player {
         }
         return moves;
     }
+
+    private ArrayList<Move> getNLongEnemyMoves(int n){
+        ArrayList<Move> moves = new ArrayList<Move>();
+        ArrayList<Block> eBlocks = enemy.blocks;
+        ArrayList<Point> eCorners = enemy.getCorners();
+
+        for (Point corner : eCorners) {
+            for (Block block : eBlocks) {
+                if(block.getSize()==n) {
+                    ArrayList<Block> rotations = block.getRotations();
+                    for (Block rBlock : rotations) {
+                        for (int i = 0; i < rBlock.getSize(); ++i) {
+                            Point pt = new Point(corner.x - block.getPoint(i).x, corner.y - block.getPoint(i).y);
+                            if (map.isPlaceable(rBlock, pt, eCorners)) {
+                                //Block newBlock = new Block(rBlock);
+                                int value = getValue(rBlock, pt);
+                                Move move = new Move(rBlock, pt, value);
+                                moves.add(move);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return moves;
+    }
+
 
     private int getValue(Block block, Point pt) {
         int value = 0;
@@ -196,6 +224,14 @@ public class PlayerAlgorithm extends Player {
                         values[i][j] += 5;
                     }
                 }
+            }
+        }
+        ArrayList<Move> enemyMoves = getNLongEnemyMoves(5);
+        enemyMoves.addAll(getNLongEnemyMoves(4));
+        for(Move move:enemyMoves){
+            for(int i=0; i<move.block.getSize(); ++i){
+                Point temp = new Point(move.pt.x +  move.block.getPoint(i).x, move.pt.y + move.block.getPoint(i).y);
+                values[temp.x][temp.y] += 2;
             }
         }
     }
