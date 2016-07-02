@@ -1,4 +1,4 @@
-package blokusgame.mi.android.hazi.blokus;
+package com.elekt.blokus;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -14,19 +14,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.elekt.blokus.GameLogic.Block;
+import com.elekt.blokus.GameLogic.Map;
+import com.elekt.blokus.GameLogic.Player;
+import com.elekt.blokus.GameLogic.PlayerAlgorithm;
+import com.elekt.blokus.GameLogic.PlayerHuman;
+import com.elekt.blokus.GameLogic.Point;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-import java.util.ArrayList;
+import com.elekt.blokus.View.BlockView;
+import com.elekt.blokus.View.BoardTouchListener;
+import com.elekt.blokus.View.BoardView;
 
-import View.BlockView;
-import View.BoardTouchListener;
-import View.BoardView;
-import blokusgame.mi.android.hazi.blokus.GameLogic.Block;
-import blokusgame.mi.android.hazi.blokus.GameLogic.Map;
-import blokusgame.mi.android.hazi.blokus.GameLogic.Player;
-import blokusgame.mi.android.hazi.blokus.GameLogic.PlayerAlgorithm;
-import blokusgame.mi.android.hazi.blokus.GameLogic.PlayerHuman;
-import blokusgame.mi.android.hazi.blokus.GameLogic.Point;
+import java.util.ArrayList;
 
 import static android.view.View.OnClickListener;
 
