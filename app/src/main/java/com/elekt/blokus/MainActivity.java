@@ -20,11 +20,10 @@ import com.elekt.blokus.GameLogic.Player;
 import com.elekt.blokus.GameLogic.PlayerAlgorithm;
 import com.elekt.blokus.GameLogic.PlayerHuman;
 import com.elekt.blokus.GameLogic.Point;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-
 import com.elekt.blokus.View.BlockView;
 import com.elekt.blokus.View.BoardTouchListener;
 import com.elekt.blokus.View.BoardView;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 
@@ -158,7 +157,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
             // redundancy
             player2.nextStep();
             boardView.setCorners(player1.getCorners());
-            slidingUpLayout.expandPanel();
+            slidingUpLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
         } else{
             return false;
         }
@@ -173,7 +172,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
             if(block!=null){
                 blocks.add(block);
             }
-            slidingUpLayout.expandPanel();
+            slidingUpLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
         }
 
         boardView.setCorners(player1.getCorners());
@@ -220,7 +219,7 @@ public class MainActivity extends Activity implements BoardTouchListener {
                 Toast.makeText(getApplicationContext(), "Set the coordinates too", Toast.LENGTH_SHORT).show();
             }
             choosenBlockView = (ImageView) view;
-            slidingUpLayout.collapsePanel();
+            slidingUpLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
         }
     }
     public class RotatedBlockViewOnClickListener implements OnClickListener{
